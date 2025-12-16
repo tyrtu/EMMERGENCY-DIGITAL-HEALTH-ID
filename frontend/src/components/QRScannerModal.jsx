@@ -53,7 +53,7 @@ const QRScannerModal = ({ isOpen, onClose, onScanSuccess }) => {
         return null; // Not our encrypted format
       }
 
-      // For now, we'll use a simple base64 decode since we're using simple encryption
+      //  we'll use a simple base64 decode since we're using simple encryption
       try {
         const decodedData = atob(encryptedData.e);
         const decrypted = JSON.parse(decodedData);

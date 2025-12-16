@@ -4,7 +4,7 @@
   "description": "Emergency Health ID Backend API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test node --test",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
@@ -25,5 +25,10 @@
     "pdfkit": "^0.15.0",
     "qrcode": "^1.5.4",
     "sharp": "^0.33.5"
+  }
+  ,
+  "devDependencies": {
+    "supertest": "^6.3.3",
+    "cross-env": "^7.0.3"
   }
 }

@@ -2,7 +2,6 @@
 import express from "express";
 import QRCode from "qrcode";
 import Patient from "../models/Patient.js";
-import { generateHealthIDCardPDF } from "../services/pdfCardGenerator.js";
 import path from "path";
 import fs from "fs";
 import { createClient } from '@supabase/supabase-js';
@@ -167,6 +166,8 @@ router.get("/card-pdf/:authId", async (req, res) => {
     }
 
     // Generate PDF
+    // Import PDF generator lazily to avoid loading native modules (e.g., sharp) during tests
+    const { generateHealthIDCardPDF } = await import("../services/pdfCardGenerator.js");
     const pdfBuffer = await generateHealthIDCardPDF(patient, qrCodeBuffer, profilePhotoBuffer);
 
     // Set response headers

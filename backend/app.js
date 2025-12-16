@@ -76,8 +76,10 @@ app.use("/api/medics", medicRoutes);
 app.use("/api/records", medicalRecordRoutes);
 app.use("/api/medication-log", medicationLogRoutes);
 
-//Connect DB
-connectDB();
+// Connect DB (skip automatic DB connection during tests)
+if (process.env.NODE_ENV !== 'test') {
+  connectDB();
+}
 
 // Health check
 app.get("/", (req, res) => {
@@ -92,9 +94,13 @@ app.get("/", (req, res) => {
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-// Start server
-app.listen(port, () => {
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`✅ Server running on port ${port}`);
-  }
-});
+// Export app for testing and start server when not in test mode
+export default app;
+
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`✅ Server running on port ${port}`);
+    }
+  });
+}

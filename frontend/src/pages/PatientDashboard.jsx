@@ -650,6 +650,16 @@ const PatientDashboard = () => {
                 </div>
 
                 {/* Action Buttons */}
+               {/* QR Image Preview */}
+              {qrUrl && (
+                <div style={{ textAlign: 'center', marginTop: 12 }}>
+                  <img
+                    src={qrUrl}
+                    alt="Medical QR Code"
+                    style={{ width: 180, height: 180, borderRadius: 12, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}
+                  />
+                </div>
+              )}
                 <div className={styles.qrActions}>
                   <button 
                     className={`${styles.qrActionBtn} ${styles.downloadBtn}`}

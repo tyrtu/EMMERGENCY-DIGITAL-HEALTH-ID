@@ -12,9 +12,7 @@ const safeJson = async (res) => {
   }
 };
 
-// --------------------------------------
 // Fetch Mongo Profile - ALWAYS FRESH DATA
-// --------------------------------------
 const fetchMongoProfile = async (authId) => {
   if (!authId) {
     console.log("[AUTH] No authId provided, skipping profile fetch");
@@ -48,9 +46,7 @@ const fetchMongoProfile = async (authId) => {
   }
 };
 
-// --------------------------------------
 // Create Mongo Profile
-// --------------------------------------
 const createMongoProfile = async ({ authId, email, fullName }) => {
   if (!authId) {
     console.log("[AUTH] No authId provided, skipping profile creation");
@@ -78,9 +74,8 @@ const createMongoProfile = async ({ authId, email, fullName }) => {
   }
 };
 
-// --------------------------------------
+
 // Refresh User Data - ALWAYS FETCH FRESH
-// --------------------------------------
 export const refreshUserData = createAsyncThunk(
   "auth/refreshUserData",
   async (_, { rejectWithValue }) => {
@@ -123,9 +118,8 @@ export const refreshUserData = createAsyncThunk(
   }
 );
 
-// --------------------------------------
-// Register User - FIXED EMAIL CONFIRMATION FLOW
-// --------------------------------------
+// Register User - 
+
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async ({ email, password, fullName }, { rejectWithValue }) => {
@@ -204,9 +198,8 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-// --------------------------------------
+
 // Login User - ALWAYS FRESH DATA
-// --------------------------------------
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async ({ email, password }, { rejectWithValue }) => {
