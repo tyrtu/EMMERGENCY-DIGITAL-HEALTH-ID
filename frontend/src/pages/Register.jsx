@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, clearError, clearMessage } from '../store/authSlice';
 import { CheckCircle, Warning, Email as EmailIcon, Info } from '@mui/icons-material';
+import { Link } from "react-router-dom";
 import './Auth.css'; 
 
 const Register = () => {
-  const [name, setName] = useState(""); // optional: can be stored separately in your DB
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,7 +16,6 @@ const Register = () => {
     (state) => state.auth
   );
 
-  // Clear messages when component unmounts or form is reset
   useEffect(() => {
     return () => {
       dispatch(clearError());
@@ -23,7 +23,6 @@ const Register = () => {
     };
   }, [dispatch]);
 
-  // Clear password fields after successful registration (for security)
   useEffect(() => {
     if (message && !error) {
       setPassword('');
@@ -38,7 +37,6 @@ const Register = () => {
       return;
     }
 
-    // ✅ Call Supabase register via thunk
     dispatch(registerUser({ email, password, fullName: name }));
   };
 
@@ -100,9 +98,6 @@ const Register = () => {
         </button>
       </form>
 
-      {/* (Removed) Google sign-in option */}
-
-      {/* Error Messages */}
       {error && (
         <div className="error-message">
           <Warning style={{ fontSize: '20px', marginRight: '10px', verticalAlign: 'middle' }} />
@@ -113,7 +108,6 @@ const Register = () => {
         </div>
       )}
 
-      {/* Success Messages */}
       {message && !error && (
         <div className={requiresConfirmation ? "info-message" : "success-message"}>
           {requiresConfirmation ? (
@@ -141,7 +135,7 @@ const Register = () => {
       )}
 
       <p className="switch-text">
-        Already have an account? <a href="/login">Login</a>
+        Already have an account? <Link to="/login">Login</Link>
       </p>
     </div>
   );

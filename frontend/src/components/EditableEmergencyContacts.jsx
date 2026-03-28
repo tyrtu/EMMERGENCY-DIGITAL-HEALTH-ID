@@ -14,8 +14,6 @@ const EditableEmergencyContacts = ({ contacts, patientId, patientAuthId, onUpdat
   const [editingContacts, setEditingContacts] = useState([]);
 
   useEffect(() => {
-    // Initialize editing contacts from props
-    // Handle both EmergencyContact model and patient.emergencyInfo.primaryEmergencyContacts format
     const normalized = Array.isArray(contacts) ? contacts : contacts ? [contacts] : [];
     
     if (normalized.length > 0) {
@@ -29,7 +27,6 @@ const EditableEmergencyContacts = ({ contacts, patientId, patientAuthId, onUpdat
         isPrimary: c.isPrimary || c.primary || false,
       })));
     } else {
-      // If no contacts from EmergencyContact model, check patient's emergencyInfo
       setEditingContacts([]);
     }
   }, [contacts]);
@@ -62,15 +59,12 @@ const EditableEmergencyContacts = ({ contacts, patientId, patientAuthId, onUpdat
     setSuccess(null);
 
     try {
-      // Validate contacts
       for (const contact of editingContacts) {
         if (!contact.name || !contact.relationship || !contact.phone) {
           throw new Error('All contacts must have name, relationship, and phone');
         }
       }
 
-      // Update patient's emergency contacts
-      // We'll update the patient's emergencyInfo.primaryEmergencyContacts
       const updatePayload = {
         emergencyInfo: {
           primaryEmergencyContacts: editingContacts.map(c => ({
@@ -84,9 +78,7 @@ const EditableEmergencyContacts = ({ contacts, patientId, patientAuthId, onUpdat
         },
       };
 
-      // Note: Patients can update their own emergency contacts via PUT /api/patients/:authId
-      // The backend will allow updating emergencyInfo.primaryEmergencyContacts for patients
-      const data = await apiClient.put(`/api/patients/${patientAuthId}`, updatePayload, {
+      await apiClient.put(`/api/patients/${patientAuthId}`, updatePayload, {
         authId: patientAuthId,
       });
 
@@ -107,7 +99,6 @@ const EditableEmergencyContacts = ({ contacts, patientId, patientAuthId, onUpdat
     setIsEditing(false);
     setError(null);
     setSuccess(null);
-    // Reset to original contacts
     const normalized = Array.isArray(contacts) ? contacts : contacts ? [contacts] : [];
     setEditingContacts(normalized.length > 0 ? normalized.map(c => ({
       _id: c._id || c.id,

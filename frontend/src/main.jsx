@@ -6,7 +6,6 @@ import { store } from './store/index.js'
 import { Provider } from 'react-redux'
 import { initOfflineCache } from './utils/offlineCache'
 
-// Initialize offline cache
 initOfflineCache()
 
 createRoot(document.getElementById('root')).render(

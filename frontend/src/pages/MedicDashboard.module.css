@@ -3923,3 +3923,75 @@
     display: none;
   }
 }
+
+/* Presentation polish overrides */
+.dashboard {
+  background:
+    radial-gradient(circle at 5% 0%, rgba(22, 105, 122, 0.1), transparent 30%),
+    radial-gradient(circle at 96% 0%, rgba(220, 38, 38, 0.11), transparent 28%),
+    linear-gradient(180deg, #f7fafc 0%, #ebf1f6 100%);
+  font-family: var(--font-ui);
+}
+
+.sidebar {
+  background: linear-gradient(180deg, #0f4c5c 0%, #1f2937 100%);
+}
+
+.sidebarHeader .logo,
+.header h1,
+.sectionTitle,
+.pageTitle {
+  font-family: var(--font-display);
+}
+
+.sidebar li {
+  border-radius: 10px;
+}
+
+.sidebar li:nth-child(4) svg,
+.sidebar li:nth-child(5) svg {
+  color: #e29578;
+}
+
+.sidebar .active {
+  background: rgba(255, 255, 255, 0.18);
+  border-left-color: var(--accent-500);
+}
+
+.main {
+  background: transparent;
+}
+
+.header,
+.card,
+.statCard,
+.emergencyScannerCard {
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.header {
+  background: linear-gradient(165deg, #ffffff, #f8fbfd);
+}
+
+.emergencyBtn,
+.actionButton,
+.viewDetailsBtn {
+  background: linear-gradient(140deg, #dc2626, #b91c1c);
+}
+
+.emergencyScanBtn,
+.notificationBtn {
+  background: linear-gradient(140deg, var(--brand-700), var(--brand-500));
+  color: #fff;
+}
+
+.loading,
+.error {
+  width: min(640px, calc(100% - 2rem));
+  margin: 12vh auto;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  background: #fff;
+}

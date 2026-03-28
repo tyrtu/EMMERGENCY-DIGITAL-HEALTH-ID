@@ -24,11 +24,9 @@ const OAuthCallback = () => {
     processCallback();
   }, [dispatch, navigate]);
 
-  // Redirect after successful authentication
   useEffect(() => {
     if (user && role && !loading) {
       if (role === 'patient') {
-        // Check if patient doc exists, if not redirect to welcome
         navigate('/dashboard');
       } else if (role === 'medic') {
         navigate('/medic-dashboard');
@@ -42,29 +40,15 @@ const OAuthCallback = () => {
     <div className="login-page" style={{ textAlign: 'center' }}>
       <h2 className="login-title">Completing Sign In...</h2>
       {loading && (
-        <div style={{ marginTop: '2rem' }}>
-          <div style={{
-            width: '50px',
-            height: '50px',
-            border: '4px solid #f3f4f6',
-            borderTop: '4px solid #3b82f6',
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite',
-            margin: '0 auto'
-          }}></div>
-          <p style={{ marginTop: '1rem', color: '#64748b' }}>Authenticating with Google...</p>
-          <style>{`
-            @keyframes spin {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
-            }
-          `}</style>
+        <div className="oauthStatus">
+          <div className="oauthSpinner" />
+          <p className="oauthHint">Authenticating your account...</p>
         </div>
       )}
       {error && (
-        <div style={{ marginTop: '2rem' }}>
+        <div className="oauthStatus">
           <p className="error-text">{error}</p>
-          <p style={{ marginTop: '1rem', color: '#64748b' }}>Redirecting to login...</p>
+          <p className="oauthHint">Redirecting to login...</p>
         </div>
       )}
     </div>

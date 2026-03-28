@@ -8,8 +8,7 @@ const WelcomeSetup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, loading, role } = useSelector((state) => state.auth);
-  
-  // Redirect if not a patient or not logged in
+
   useEffect(() => {
     if (!loading && (!user || role !== 'patient')) {
       navigate('/login');
@@ -53,7 +52,6 @@ const WelcomeSetup = () => {
     { number: 3, title: 'Complete', description: 'All done!' }
   ];
 
-  // Validation functions
   const validatePhone = (phone) => {
     if (!phone) return true;
     const phoneRegex = /^[\d\s\-\+\(\)]+$/;
@@ -168,7 +166,6 @@ const WelcomeSetup = () => {
     }
   };
 
-  // ✅ UPDATED handleSubmit - Only safe fields for patient self-registration
   const handleSubmit = async () => {
     try {
       setSubmitError(null);
@@ -176,8 +173,8 @@ const WelcomeSetup = () => {
       setIsSubmitting(true);
 
       const payload = {
-        authId: user?.id, // Required by your API
-        email: formData.basicInfo.contact?.email || user?.email, // Required field
+        authId: user?.id,
+        email: formData.basicInfo.contact?.email || user?.email,
         basicInfo: {
           fullName: formData.basicInfo.fullName.trim(),
           dob: formData.basicInfo.dob || undefined,
@@ -199,12 +196,9 @@ const WelcomeSetup = () => {
           occupation: formData.basicInfo.occupation || undefined,
           maritalStatus: formData.basicInfo.maritalStatus || 'Single'
         },
-        // Medical info will be filled by medics later
         medicalInfo: {
-          // Empty - to be filled by healthcare professionals
         },
         emergencyInfo: {
-          // Empty - to be filled by healthcare professionals  
         },
         profileStatus: 'basic_info_complete'
       };
@@ -213,7 +207,6 @@ const WelcomeSetup = () => {
       await apiClient.post('/api/patients', payload, { authId: user?.id });
 
       setSubmitSuccess('Profile saved successfully! Redirecting to your dashboard...');
-      // Refresh window to trigger route guard check
       setTimeout(() => {
         window.location.href = '/dashboard';
       }, 2000);

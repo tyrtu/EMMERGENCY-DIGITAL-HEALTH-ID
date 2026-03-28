@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError, clearMessage } from "../store/authSlice";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Warning, CheckCircle, Info } from '@mui/icons-material';
 import './Auth.css';
 
@@ -18,15 +18,13 @@ const Login = () => {
     (state) => state.auth
   );
 
-  // Check for email confirmation success message from URL
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     if (urlParams.get('message') === 'email_confirmed_success') {
-      // This will be handled by the message display
+      return;
     }
   }, [location]);
 
-  // Clear messages when component unmounts
   useEffect(() => {
     return () => {
       dispatch(clearError());
@@ -40,7 +38,6 @@ const Login = () => {
   };
 
 
-  // ✅ Redirect after login based on role
   useEffect(() => {
     if (isAuthenticated && role) {
       if (role === "patient") {
@@ -48,7 +45,7 @@ const Login = () => {
       } else if (role === "medic") {
         navigate("/medic-dashboard");
       } else {
-        navigate("/"); // fallback
+        navigate("/");
       }
     }
   }, [isAuthenticated, role, navigate]);
@@ -87,9 +84,6 @@ const Login = () => {
         </button>
       </form>
 
-      {/* (Removed) Google sign-in option */}
-
-      {/* Email Confirmation Success Message */}
       {location.search.includes('email_confirmed_success') && (
         <div className="success-message">
           <CheckCircle style={{ fontSize: '20px', marginRight: '10px', verticalAlign: 'middle' }} />
@@ -100,7 +94,6 @@ const Login = () => {
         </div>
       )}
 
-      {/* Error Messages */}
       {error && (
         <div className="error-message">
           <Warning style={{ fontSize: '20px', marginRight: '10px', verticalAlign: 'middle' }} />
@@ -117,7 +110,6 @@ const Login = () => {
         </div>
       )}
 
-      {/* Success Messages */}
       {message && !error && isAuthenticated && (
         <div className="success-message">
           <CheckCircle style={{ fontSize: '20px', marginRight: '10px', verticalAlign: 'middle' }} />
@@ -129,7 +121,7 @@ const Login = () => {
       )}
 
       <p className="switch-text">
-        Don&apos;t have an account? <a href="/register">Register</a>
+        Don&apos;t have an account? <Link to="/register">Register</Link>
       </p>
     </div>
   );

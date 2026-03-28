@@ -740,3 +740,52 @@
     display: none;
   }
 }
+
+/* Presentation polish overrides */
+.welcome-setup-container {
+  background:
+    radial-gradient(circle at 6% 0%, rgba(22, 105, 122, 0.14), transparent 34%),
+    radial-gradient(circle at 95% 12%, rgba(226, 149, 120, 0.2), transparent 32%),
+    linear-gradient(180deg, #f8fbfd 0%, #eef3f8 100%);
+  font-family: var(--font-ui);
+}
+
+.setup-header h1,
+.welcome-step h2,
+.completion-step h2,
+.form-section h3 {
+  font-family: var(--font-display);
+}
+
+.progress-bar-container,
+.content-card,
+.navigation-bar {
+  border-color: var(--border-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.progress-fill,
+.btn-continue,
+.btn-complete,
+.progress-step.active .step-circle {
+  background: linear-gradient(140deg, var(--brand-700), var(--brand-500));
+}
+
+.btn-back {
+  background: #475569;
+}
+
+.info-item {
+  border-left-color: var(--brand-500);
+  border-radius: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 4px rgba(22, 105, 122, 0.15);
+}
+
+.btn {
+  border-radius: 11px;
+}

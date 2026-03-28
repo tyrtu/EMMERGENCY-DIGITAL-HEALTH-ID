@@ -3802,3 +3802,89 @@
     padding: 8px;
   }
 }
+
+/* Presentation polish overrides */
+.dashboard {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(22, 105, 122, 0.1), transparent 34%),
+    radial-gradient(circle at 90% 5%, rgba(226, 149, 120, 0.14), transparent 28%),
+    linear-gradient(180deg, #f6f9fc 0%, #eaf0f6 100%);
+  font-family: var(--font-ui);
+}
+
+.sidebar {
+  background: linear-gradient(180deg, #0f4c5c 0%, #123947 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebarHeader .logo {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.navItem {
+  border-radius: 11px;
+  transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+.navItem:hover {
+  transform: translateX(2px);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.navItem.active {
+  background: rgba(255, 255, 255, 0.18);
+  border-left-color: var(--accent-500);
+}
+
+.main {
+  background: transparent;
+}
+
+.header {
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.header h1,
+.sectionTitle,
+.pageTitle,
+.profileSummaryName {
+  font-family: var(--font-display);
+}
+
+.card,
+.welcomeCard,
+.statCard,
+.qrHighlightCard,
+.profileSummaryCard {
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.welcomeCard,
+.qrHighlightCard {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.95), rgba(248, 251, 253, 0.95));
+}
+
+.qrHighlightButton,
+.viewAllBtn,
+.logoutBtn {
+  background: linear-gradient(140deg, var(--brand-700), var(--brand-500));
+}
+
+.qrHighlightButton:hover,
+.viewAllBtn:hover,
+.logoutBtn:hover {
+  background: linear-gradient(140deg, var(--brand-600), var(--brand-500));
+}
+
+.loading,
+.error {
+  width: min(640px, calc(100% - 2rem));
+  margin: 12vh auto;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  background: #fff;
+}

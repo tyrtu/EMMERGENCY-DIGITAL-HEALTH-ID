@@ -9,21 +9,27 @@ import QRScanner from "./components/QRScanner";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import PatientDashboard from "./pages/PatientDashboard";
-import MedicDashboard from "./pages/MedicDashboard"; // ✅ new import
-import { loadUserFromSession } from "./store/authSlice"; // ✅ import action
+import MedicDashboard from "./pages/MedicDashboard";
+import { loadUserFromSession } from "./store/authSlice";
 import WelcomeSetup from "./pages/WelcomeSetup";
 import PatientRouteGuard from "./components/PatientRouteGuard";
 import OAuthCallback from "./pages/OAuthCallback";
 import Documentation from "./pages/Documentation";
 
-// ✅ Private route wrapper
 function PrivateRoute({ children }) {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
 
-  // While session is being restored, don’t redirect yet
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="appLoadingScreen">
+        <div className="appLoadingCard">
+          <div className="appLoadingSpinner" />
+          <h2>Securing your session</h2>
+          <p>Please wait while we load your dashboard.</p>
+        </div>
+      </div>
+    );
   }
 
   return isAuthenticated ? children : <Navigate to="/login" replace />;
@@ -32,7 +38,6 @@ function PrivateRoute({ children }) {
 function App() {
   const dispatch = useDispatch();
 
-  // ✅ Restore Supabase session when app loads
   useEffect(() => {
     dispatch(loadUserFromSession());
   }, [dispatch]);
@@ -41,13 +46,11 @@ function App() {
     <ErrorBoundary>
       <Router>
         <Routes>
-          {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/auth/callback" element={<OAuthCallback />} />
           <Route path="/enterprise-docs" element={<Documentation />} />
-          
-          {/* Protected welcome setup - only for patients without patient doc */}
+
           <Route
             path="/welcome"
             element={
@@ -57,7 +60,6 @@ function App() {
             }
           />
 
-          {/* Protected routes */}
           <Route
             path="/scanner"
             element={
@@ -95,7 +97,6 @@ function App() {
             }
           />
 
-          {/* Redirect unknown paths */}
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </Router>

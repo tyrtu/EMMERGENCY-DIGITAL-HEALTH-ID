@@ -25,10 +25,9 @@
     "pdfkit": "^0.15.0",
     "qrcode": "^1.5.4",
     "sharp": "^0.33.5"
-  }
-  ,
+  },
   "devDependencies": {
-    "supertest": "^6.3.3",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "supertest": "^6.3.3"
   }
 }
