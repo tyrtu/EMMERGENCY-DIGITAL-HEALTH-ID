@@ -1,7 +1,19 @@
-// Centralized API configuration
-// If VITE_API_BASE_URL is set, use it (for ngrok or custom backend URL)
-// Otherwise, use empty string to use Vite proxy (relative URLs)
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+// Centralized API configuration.
+// In production, VITE_API_BASE_URL must point to the deployed backend.
+const rawApiBaseUrl =
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_BACKEND_URL ||
+  '';
+
+const API_BASE_URL = rawApiBaseUrl.trim().replace(/\/+$/, '');
+const IS_PRODUCTION = import.meta.env.MODE === 'production';
+
+if (IS_PRODUCTION && !API_BASE_URL) {
+  console.error(
+    '[CONFIG] Missing VITE_API_BASE_URL in production. ' +
+      'Set it to your deployed backend URL (e.g. https://your-backend.vercel.app).'
+  );
+}
 
 // Helper to get token from Supabase session
 async function getSupabaseToken() {
@@ -35,6 +47,13 @@ class ApiClient {
   }
 
   async request(endpoint, options = {}) {
+    if (IS_PRODUCTION && !this.baseURL && endpoint.startsWith('/api')) {
+      throw new Error(
+        'Configuration error: VITE_API_BASE_URL is not set for production. ' +
+          'The frontend cannot reach backend API routes.'
+      );
+    }
+
     // Get token from Supabase session (preferred) or localStorage fallback
     const token = await getSupabaseToken() || localStorage.getItem('token');
     // Get authId from Supabase session (preferred) or localStorage fallback
