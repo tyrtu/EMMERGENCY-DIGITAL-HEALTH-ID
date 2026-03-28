@@ -10,7 +10,7 @@ import {
   MedicPerformance,
   RealTimeAnalytics,
   PredictiveAnalytics
-} from '../models/analytic.js';
+} from '../models/Analytic.js';
 
 // Utility function for handling errors
 const handleError = (res, error, message = 'Server error') => {
