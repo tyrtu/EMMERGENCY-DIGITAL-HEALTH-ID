@@ -21,12 +21,10 @@ function parseQrPayload(decodedText: string): QRData | null {
   try {
     const parsed = JSON.parse(decodedText) as Payload;
 
-    // Graceful QR format
     if (parsed?.v && parsed?.id) {
       return parsed as QRData;
     }
 
-    // Backend compact payload format: { e: base64, i: 'emh', ... }
     if (parsed?.e) {
       const json = atob(parsed.e);
       const payload = JSON.parse(json) as Payload;
@@ -84,36 +82,59 @@ export default function QRScanner({ onScanResult, onClose }: QRScannerProps) {
   useEffect(() => {
     if (manualMode) return;
 
-    const scanner = new Html5Qrcode("qr-reader");
-    scannerRef.current = scanner;
+    let cancelled = false;
 
-    scanner
-      .start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: { width: 250, height: 250 } },
-        (decodedText) => {
-          const data = parseQrPayload(decodedText);
-          if (data?.id) {
-            scanner.stop().catch(() => {});
-            onScanResult(data);
-          }
-        },
-        () => {} // ignore scan failures
-      )
-      .catch(() => {
-        setError("Camera access denied. Use manual entry instead.");
-        setManualMode(true);
-      });
+    const startScanner = () => {
+      if (cancelled) return;
+      const qrElem = document.getElementById("qr-reader");
+      if (!qrElem || qrElem.clientWidth === 0) {
+        // Element not rendered yet, wait a bit more
+        setTimeout(startScanner, 200);
+        return;
+      }
+      try {
+        const scanner = new Html5Qrcode("qr-reader");
+        scannerRef.current = scanner;
+        console.log("[QRScanner] Initializing scanner...");
+        scanner
+          .start(
+            { facingMode: "environment" },
+            { fps: 10, qrbox: { width: 250, height: 250 } },
+            (decodedText) => {
+              const data = parseQrPayload(decodedText);
+              if (data?.id) {
+                if (scannerRef.current?.getState && scannerRef.current.getState() === 2) {
+                  scannerRef.current.stop().catch(() => {});
+                }
+                onScanResult(data);
+              }
+            },
+            () => {}
+          )
+          .catch((err) => {
+            console.error("[QRScanner] Camera start error:", err);
+            setError("Camera access denied or unavailable. Please check your browser settings and try again.");
+          });
+      } catch (err) {
+        console.error("[QRScanner] Scanner initialization error:", err);
+        setError("Failed to initialize scanner. Please refresh the page or try a different browser.");
+      }
+    };
+
+    // Wait for modal animation to finish before starting scanner
+    setTimeout(startScanner, 500);
 
     return () => {
-      scanner.stop().catch(() => {});
+      cancelled = true;
+      if (scannerRef.current?.getState && scannerRef.current.getState() === 2) {
+        scannerRef.current.stop().catch(() => {});
+      }
     };
   }, [manualMode, onScanResult]);
 
   const handleManualSubmit = () => {
     const trimmed = manualId.trim();
     if (!trimmed) return;
-    // Create a minimal QR data object from manual health ID
     onScanResult({
       v: 1,
       id: trimmed,
@@ -133,6 +154,7 @@ export default function QRScanner({ onScanResult, onClose }: QRScannerProps) {
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.2 }}
         className="w-full max-w-md"
       >
         <div className="card-medical p-6">
@@ -152,10 +174,15 @@ export default function QRScanner({ onScanResult, onClose }: QRScannerProps) {
                 id="qr-reader"
                 ref={containerRef}
                 className="w-full rounded-xl overflow-hidden bg-muted mb-4"
-                style={{ minHeight: 280 }}
+                style={{ minHeight: 280, width: "100%" }}
               />
               {error && (
-                <p className="text-sm text-destructive mb-3">{error}</p>
+                <div className="mb-3">
+                  <p className="text-sm text-destructive mb-1">{error}</p>
+                  <Button variant="outline" size="sm" onClick={() => setManualMode(true)}>
+                    Switch to Manual Entry
+                  </Button>
+                </div>
               )}
               <p className="text-xs text-muted-foreground text-center mb-4">
                 Point camera at patient's Health ID QR code
@@ -183,10 +210,16 @@ export default function QRScanner({ onScanResult, onClose }: QRScannerProps) {
             <Button
               variant="outline"
               className="flex-1 gap-2"
-              onClick={() => {
-                if (!manualMode) scannerRef.current?.stop().catch(() => {});
-                setManualMode(!manualMode);
+              onClick={async () => {
+                if (!manualMode && scannerRef.current?.getState && scannerRef.current.getState() === 2) {
+                  await scannerRef.current.stop().catch(() => {});
+                }
                 setError(null);
+                if (manualMode) {
+                  setTimeout(() => setManualMode(false), 200);
+                } else {
+                  setManualMode(true);
+                }
               }}
             >
               {manualMode ? (

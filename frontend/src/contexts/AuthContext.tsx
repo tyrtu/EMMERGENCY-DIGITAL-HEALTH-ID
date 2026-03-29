@@ -56,8 +56,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     console.log("[AUTH]", ...args);
   };
 
+  // Cooldown state to prevent repeated 429s
+  const [rateLimitCooldown, setRateLimitCooldown] = useState<number | null>(null);
+
   const ensureProfileAndRole = async (currentUser: User, preferredRole?: AppRole) => {
     logAuth("ensureProfileAndRole:start", { userId: currentUser.id, preferredRole });
+    if (rateLimitCooldown && Date.now() < rateLimitCooldown) {
+      logAuth("Rate limit cooldown active, skipping ensureProfileAndRole");
+      return;
+    }
     const fullName = currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || "";
     const email = currentUser.email;
     if (!email) {
@@ -88,7 +95,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       let profileResponse: any;
       try {
         profileResponse = await apiRequest(`/api/profiles/${currentUser.id}`);
-      } catch (error) {
+      } catch (error: any) {
+        if (error?.isRateLimit) {
+          logAuth("profile fetch rate-limited, entering cooldown", error);
+          // Set cooldown for 1 minute or retry-after if provided
+          const retryAfter = error.retryAfter ? parseInt(error.retryAfter, 10) * 1000 : 60000;
+          setRateLimitCooldown(Date.now() + retryAfter);
+          alert("You are being rate limited. Please wait a minute before trying again.");
+          return;
+        }
         logAuth("profile fetch failed -> fallback patient", error);
         setRole("patient");
         return;
@@ -97,7 +112,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const resolvedRole = (profileResponse?.data?.role || "patient") as AppRole;
       setRole(resolvedRole);
       logAuth("role resolved", resolvedRole);
-    } catch (error) {
+    } catch (error: any) {
+      if (error?.isRateLimit) {
+        logAuth("ensureProfileAndRole rate-limited, entering cooldown", error);
+        const retryAfter = error.retryAfter ? parseInt(error.retryAfter, 10) * 1000 : 60000;
+        setRateLimitCooldown(Date.now() + retryAfter);
+        alert("You are being rate limited. Please wait a minute before trying again.");
+        return;
+      }
       // Never leave role unresolved on API failures.
       logAuth("ensureProfileAndRole:error -> fallback patient", error);
       setRole("patient");

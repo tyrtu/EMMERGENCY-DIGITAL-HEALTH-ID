@@ -6,7 +6,7 @@ import { connectDB } from "./src/config/db.js";
 import { verifyToken } from "./src/middleware/auth.js";
 import { identifyUser } from "./src/middleware/identifyUser.js"; 
 import { errorHandler, notFoundHandler } from "./src/middleware/errorHandler.js";
-import { apiLimiter, qrLimiter, analyticsLimiter } from "./src/middleware/rateLimiter.js";
+// import { apiLimiter, qrLimiter, analyticsLimiter } from "./src/middleware/rateLimiter.js";
 import { sanitizeBody } from "./src/middleware/validation.js";
 
 //Routes
@@ -58,17 +58,17 @@ app.use(sanitizeBody);
 
 app.use('/uploads', express.static('uploads'));
 
-app.use(apiLimiter);
+// app.use(apiLimiter); // Disabled for testing
 
-app.use("/api/qr", qrLimiter, qrRoutes);
-app.use("/api/analytics", analyticsLimiter, analyticRoutes);
+app.use("/api/qr", /* qrLimiter, */ qrRoutes); // Disabled qrLimiter for testing
+app.use("/api/analytics", /* analyticsLimiter, */ analyticRoutes); // Disabled analyticsLimiter for testing
 app.use("/api/emergency-contacts", emergencyContactRoutes);
 
 app.use(verifyToken);
 app.use(identifyUser);
 
 app.use("/api/profiles", profileRoutes);
-app.use("/api/patients", apiLimiter, patientRoutes);
+app.use("/api/patients", /* apiLimiter, */ patientRoutes); // Disabled apiLimiter for testing
 app.use("/api/medics", medicRoutes);
 app.use("/api/records", medicalRecordRoutes);
 app.use("/api/medication-log", medicationLogRoutes);

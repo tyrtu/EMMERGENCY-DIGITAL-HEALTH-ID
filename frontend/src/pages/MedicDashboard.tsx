@@ -689,88 +689,109 @@ export default function MedicDashboard() {
         </div>
       </header>
 
-      <div className="flex-1 p-6">
-        {/* Stats */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
-          {stats.map((stat) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="card-medical"
-            >
-              <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{stat.label}</div>
-              <div className="mt-1 text-2xl font-bold text-foreground">{stat.value}</div>
-            </motion.div>
-          ))}
-        </div>
 
-        {/* View Toggle */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex rounded-lg border border-border p-1 bg-muted/50 overflow-x-auto">
-            <button
-              onClick={() => setActiveView("scans")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                activeView === "scans"
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <Clock className="h-3.5 w-3.5" /> Recent Scans
-            </button>
-            <button
-              onClick={() => setActiveView("analytics")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                activeView === "analytics"
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <BarChart3 className="h-3.5 w-3.5" /> Analytics
-            </button>
-            <button
-              onClick={() => setActiveView("search")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                activeView === "search"
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <Search className="h-3.5 w-3.5" /> Patient Search
-            </button>
-            <button
-              onClick={() => setActiveView("casualty")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                activeView === "casualty"
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <Users className="h-3.5 w-3.5" /> Multi-Casualty
-            </button>
-            <button
-              onClick={() => setActiveView("profile")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                activeView === "profile"
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <Stethoscope className="h-3.5 w-3.5" /> My Profile
-            </button>
+        <div className="flex-1 p-6 pb-24 sm:pb-6">
+          {/* Stats */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+            {stats.map((stat) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="card-medical"
+              >
+                <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{stat.label}</div>
+                <div className="mt-1 text-2xl font-bold text-foreground">{stat.value}</div>
+              </motion.div>
+            ))}
           </div>
-          <div className="hidden sm:block">
-            {activeView === "scans" && (
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search patients..."
-                className="pl-10 w-64"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+
+          {/* View Toggle - sticky bottom bar on mobile */}
+          <div className="hidden sm:flex items-center justify-between mb-4">
+            <div className="flex rounded-lg border border-border p-1 bg-muted/50 overflow-x-auto">
+              <button
+                onClick={() => setActiveView('scans')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${activeView === 'scans' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+              >
+                <Clock className="h-3.5 w-3.5" /> Recent Scans
+              </button>
+              <button
+                onClick={() => setActiveView('analytics')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${activeView === 'analytics' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+              >
+                <BarChart3 className="h-3.5 w-3.5" /> Analytics
+              </button>
+              <button
+                onClick={() => setActiveView('search')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${activeView === 'search' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+              >
+                <Search className="h-3.5 w-3.5" /> Patient Search
+              </button>
+              <button
+                onClick={() => setActiveView('casualty')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${activeView === 'casualty' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+              >
+                <Users className="h-3.5 w-3.5" /> Multi-Casualty
+              </button>
+              <button
+                onClick={() => setActiveView('profile')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${activeView === 'profile' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+              >
+                <Stethoscope className="h-3.5 w-3.5" /> My Profile
+              </button>
             </div>
-            )}
+            <div className="hidden sm:block">
+              {activeView === 'scans' && (
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search patients..."
+                    className="pl-10 w-64"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Sticky mobile tab bar */}
+          <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-card border-t border-border flex justify-around py-2 shadow-lg">
+            <button
+              onClick={() => setActiveView('scans')}
+              className={`flex flex-col items-center gap-0.5 px-2 text-xs font-medium ${activeView === 'scans' ? 'text-primary' : 'text-muted-foreground'}`}
+            >
+              <Clock className="h-5 w-5 mb-0.5" />
+              Scans
+            </button>
+            <button
+              onClick={() => setActiveView('analytics')}
+              className={`flex flex-col items-center gap-0.5 px-2 text-xs font-medium ${activeView === 'analytics' ? 'text-primary' : 'text-muted-foreground'}`}
+            >
+              <BarChart3 className="h-5 w-5 mb-0.5" />
+              Analytics
+            </button>
+            <button
+              onClick={() => setActiveView('search')}
+              className={`flex flex-col items-center gap-0.5 px-2 text-xs font-medium ${activeView === 'search' ? 'text-primary' : 'text-muted-foreground'}`}
+            >
+              <Search className="h-5 w-5 mb-0.5" />
+              Search
+            </button>
+            <button
+              onClick={() => setActiveView('casualty')}
+              className={`flex flex-col items-center gap-0.5 px-2 text-xs font-medium ${activeView === 'casualty' ? 'text-primary' : 'text-muted-foreground'}`}
+            >
+              <Users className="h-5 w-5 mb-0.5" />
+              Casualty
+            </button>
+            <button
+              onClick={() => setActiveView('profile')}
+              className={`flex flex-col items-center gap-0.5 px-2 text-xs font-medium ${activeView === 'profile' ? 'text-primary' : 'text-muted-foreground'}`}
+            >
+              <Stethoscope className="h-5 w-5 mb-0.5" />
+              Profile
+            </button>
           </div>
         </div>
 

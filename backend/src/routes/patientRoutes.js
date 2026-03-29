@@ -3,7 +3,7 @@ import Patient from "../models/Patient.js";
 import { logAction } from "../middleware/auditLogger.js";
 import { requireRole } from "../middleware/requireRole.js";
 import { validateHealthVitals } from "../middleware/validation.js";
-import { authLimiter } from "../middleware/rateLimiter.js";
+// import { authLimiter } from "../middleware/rateLimiter.js";
 import { generateHealthId } from "../utils/healthIdGenerator.js";
 import upload from "../middleware/upload.js";
 import path from "path";
@@ -291,7 +291,7 @@ router.put("/:authId", requireRole(["patient", "medic", "admin"]), async (req, r
 });
 
 // ✅ Update health vitals (patients can update their own, medics/admins can update anyone)
-router.put("/:authId/vitals", authLimiter, requireRole(["patient", "medic", "admin"]), validateHealthVitals, async (req, res) => {
+router.put("/:authId/vitals", /* authLimiter, */ requireRole(["patient", "medic", "admin"]), validateHealthVitals, async (req, res) => {
   try {
     const { authId } = req.params;
     const { bloodPressure, heartRate, weight, height } = req.body;

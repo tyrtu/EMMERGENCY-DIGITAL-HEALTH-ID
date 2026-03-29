@@ -32,8 +32,15 @@ export default function PatientOnboarding() {
   const [emergencyPhone, setEmergencyPhone] = useState("");
   const [emergencyRelation, setEmergencyRelation] = useState("");
 
+  // Cooldown state for rate limiting
+  const [rateLimitCooldown, setRateLimitCooldown] = useState<number | null>(null);
+
   const handleSubmit = async () => {
     if (!user) return;
+    if (rateLimitCooldown && Date.now() < rateLimitCooldown) {
+      toast({ title: "Rate limited", description: "You are being rate limited. Please wait a minute before trying again.", variant: "destructive" });
+      return;
+    }
     setSaving(true);
     try {
       await apiRequest(`/api/patients/${user.id}/basic-info`, {
@@ -67,6 +74,12 @@ export default function PatientOnboarding() {
       toast({ title: "Profile complete!", description: "Your information has been saved. Medical data will be added by your healthcare provider." });
       navigate("/patient/dashboard");
     } catch (err: any) {
+      if (err?.isRateLimit) {
+        const retryAfter = err.retryAfter ? parseInt(err.retryAfter, 10) * 1000 : 60000;
+        setRateLimitCooldown(Date.now() + retryAfter);
+        toast({ title: "Rate limited", description: "You are being rate limited. Please wait a minute before trying again.", variant: "destructive" });
+        return;
+      }
       toast({ title: "Error", description: err.message, variant: "destructive" });
     } finally {
       setSaving(false);

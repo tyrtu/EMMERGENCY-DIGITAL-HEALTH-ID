@@ -80,36 +80,45 @@ export async function generateHealthIDCardPDF(patientData, qrCodeBuffer, profile
       // FRONT SIDE
       // ============================================
       
+
+      // THEME COLORS (match Tailwind config)
+      const COLOR_PRIMARY = '#2563eb'; // Tailwind blue-600 (primary)
+      const COLOR_PRIMARY_DARK = '#1e40af'; // Tailwind blue-800 (primary-dark)
+      const COLOR_ACCENT = '#0ea5e9'; // Tailwind sky-500 (accent)
+      const COLOR_FOREGROUND = '#0f172a'; // Tailwind slate-900 (foreground)
+      const COLOR_CARD_BG = '#ffffff'; // white
+      const COLOR_BORDER = '#e5e7eb'; // Tailwind gray-200
+
       // Professional card border - double border for official look
       // Outer border
       doc.rect(BLEED, BLEED, CARD_WIDTH, CARD_HEIGHT)
-         .lineWidth(2 * MM_TO_POINTS)
-         .strokeColor('#000000')
-         .stroke();
-      
+        .lineWidth(2 * MM_TO_POINTS)
+        .strokeColor(COLOR_PRIMARY_DARK)
+        .stroke();
+
       // Inner border for professional appearance
       const innerBorderOffset = 1 * MM_TO_POINTS;
-      doc.rect(BLEED + innerBorderOffset, BLEED + innerBorderOffset, 
-               CARD_WIDTH - (innerBorderOffset * 2), CARD_HEIGHT - (innerBorderOffset * 2))
-         .lineWidth(0.5 * MM_TO_POINTS)
-         .strokeColor('#dc2626')
-         .stroke();
-      
+      doc.rect(BLEED + innerBorderOffset, BLEED + innerBorderOffset,
+            CARD_WIDTH - (innerBorderOffset * 2), CARD_HEIGHT - (innerBorderOffset * 2))
+        .lineWidth(0.5 * MM_TO_POINTS)
+        .strokeColor(COLOR_PRIMARY)
+        .stroke();
+
       // Background (white) - inside border
       doc.rect(BLEED, BLEED, CARD_WIDTH, CARD_HEIGHT)
-         .fillColor('white')
-         .fill();
+        .fillColor(COLOR_CARD_BG)
+        .fill();
 
-      // Professional red header bar with subtle depth
+      // Professional header bar with subtle depth
       const headerHeight = 12 * MM_TO_POINTS;
       doc.rect(BLEED, BLEED, CARD_WIDTH, headerHeight)
-         .fillColor('#dc2626')
-         .fill();
-      
+        .fillColor(COLOR_PRIMARY)
+        .fill();
+
       // Subtle top highlight for professional depth
       doc.rect(BLEED, BLEED, CARD_WIDTH, 0.5 * MM_TO_POINTS)
-         .fillColor('#ef4444')
-         .fill();
+        .fillColor(COLOR_ACCENT)
+        .fill();
 
       // Header content
       const headerY = BLEED + (headerHeight / 2);
@@ -121,28 +130,29 @@ export async function generateHealthIDCardPDF(patientData, qrCodeBuffer, profile
       const iconCenterX = iconX + (iconSize / 2);
       const iconCenterY = iconY + (iconSize / 2);
       
+
       // White circular background
       doc.circle(iconCenterX, iconCenterY, iconSize / 2)
-         .fillColor('#ffffff')
-         .fill();
-      
-      // Red border circle
+        .fillColor(COLOR_CARD_BG)
+        .fill();
+
+      // Primary border circle
       doc.circle(iconCenterX, iconCenterY, iconSize / 2)
-         .lineWidth(0.5 * MM_TO_POINTS)
-         .strokeColor('#dc2626')
-         .stroke();
-      
+        .lineWidth(0.5 * MM_TO_POINTS)
+        .strokeColor(COLOR_PRIMARY)
+        .stroke();
+
       // Medical cross - professional styling
       const iconCrossThickness = 1 * MM_TO_POINTS;
       const iconCrossLength = iconSize * 0.6;
-      doc.rect(iconCenterX - (iconCrossThickness / 2), iconCenterY - (iconCrossLength / 2), 
-               iconCrossThickness, iconCrossLength)
-         .fillColor('#dc2626')
-         .fill();
-      doc.rect(iconCenterX - (iconCrossLength / 2), iconCenterY - (iconCrossThickness / 2), 
-               iconCrossLength, iconCrossThickness)
-         .fillColor('#dc2626')
-         .fill();
+      doc.rect(iconCenterX - (iconCrossThickness / 2), iconCenterY - (iconCrossLength / 2),
+            iconCrossThickness, iconCrossLength)
+        .fillColor(COLOR_PRIMARY)
+        .fill();
+      doc.rect(iconCenterX - (iconCrossLength / 2), iconCenterY - (iconCrossThickness / 2),
+            iconCrossLength, iconCrossThickness)
+        .fillColor(COLOR_PRIMARY)
+        .fill();
 
       // Title text - adjusted font size and position to fit properly, prevent cutoff
       doc.opacity(1)
@@ -163,40 +173,40 @@ export async function generateHealthIDCardPDF(patientData, qrCodeBuffer, profile
       
       // White background with subtle shadow effect
       doc.rect(badgeX, badgeY, badgeWidth, badgeHeight)
-         .fillColor('#ffffff')
-         .fill();
-      
+        .fillColor(COLOR_CARD_BG)
+        .fill();
+
       // Professional border - double line effect
       doc.rect(badgeX, badgeY, badgeWidth, badgeHeight)
-         .lineWidth(0.8 * MM_TO_POINTS)
-         .strokeColor('#dc2626')
-         .stroke();
-      
+        .lineWidth(0.8 * MM_TO_POINTS)
+        .strokeColor(COLOR_PRIMARY)
+        .stroke();
+
       // Inner border for depth
-      doc.rect(badgeX + 0.3 * MM_TO_POINTS, badgeY + 0.3 * MM_TO_POINTS, 
-               badgeWidth - 0.6 * MM_TO_POINTS, badgeHeight - 0.6 * MM_TO_POINTS)
-         .lineWidth(0.3 * MM_TO_POINTS)
-         .strokeColor('#fca5a5')
-         .stroke();
-      
+      doc.rect(badgeX + 0.3 * MM_TO_POINTS, badgeY + 0.3 * MM_TO_POINTS,
+            badgeWidth - 0.6 * MM_TO_POINTS, badgeHeight - 0.6 * MM_TO_POINTS)
+        .lineWidth(0.3 * MM_TO_POINTS)
+        .strokeColor(COLOR_ACCENT)
+        .stroke();
+
       // Badge label
       doc.fontSize(1.8 * MM_TO_POINTS)
-         .fillColor('#dc2626')
-         .font('Helvetica-Bold')
-         .text('HEALTH ID', badgeX, badgeY + 0.7 * MM_TO_POINTS, {
-           width: badgeWidth,
-           align: 'center'
-         });
-      
+        .fillColor(COLOR_PRIMARY)
+        .font('Helvetica-Bold')
+        .text('HEALTH ID', badgeX, badgeY + 0.7 * MM_TO_POINTS, {
+          width: badgeWidth,
+          align: 'center'
+        });
+
       // Badge value - more prominent
       doc.fontSize(2.8 * MM_TO_POINTS)
-         .fillColor('#dc2626')
-         .font('Helvetica-Bold')
-         .text(healthId, badgeX, badgeY + 3.2 * MM_TO_POINTS, {
-           width: badgeWidth,
-           align: 'center',
-           ellipsis: true
-         });
+        .fillColor(COLOR_PRIMARY_DARK)
+        .font('Helvetica-Bold')
+        .text(healthId, badgeX, badgeY + 3.2 * MM_TO_POINTS, {
+          width: badgeWidth,
+          align: 'center',
+          ellipsis: true
+        });
 
       // Main content area - with safe margin from header
       const contentStartY = BLEED + headerHeight + 2.5 * MM_TO_POINTS;

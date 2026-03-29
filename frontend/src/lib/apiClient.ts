@@ -90,6 +90,13 @@ export async function apiRequest<T = any>(path: string, options: ApiRequestOptio
       (typeof payload === "object" && (payload.message || payload.error)) ||
       `Request failed with status ${response.status}`;
     console.error("[API] http-error", { method, path, status: response.status, payload });
+    if (response.status === 429) {
+      const err: any = new Error(message as string);
+      err.isRateLimit = true;
+      err.status = 429;
+      err.retryAfter = response.headers.get("retry-after") || null;
+      throw err;
+    }
     throw new Error(message as string);
   }
 

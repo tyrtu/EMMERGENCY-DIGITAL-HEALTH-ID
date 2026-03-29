@@ -24,6 +24,7 @@ interface PatientDataFormProps {
 
 const BLOOD_TYPES = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
+
 export default function PatientDataForm({ qrData, onBack }: PatientDataFormProps) {
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -43,12 +44,18 @@ export default function PatientDataForm({ qrData, onBack }: PatientDataFormProps
   const [medicationInput, setMedicationInput] = useState("");
   const [insuranceProvider, setInsuranceProvider] = useState("");
   const [insurancePolicyNumber, setInsurancePolicyNumber] = useState("");
+  // Cooldown state for rate limiting
+  const [rateLimitCooldown, setRateLimitCooldown] = useState<number | null>(null);
 
   useEffect(() => {
     lookupPatient();
   }, [qrData.id]);
 
   const lookupPatient = async () => {
+    if (rateLimitCooldown && Date.now() < rateLimitCooldown) {
+      toast.error("You are being rate limited. Please wait a minute before trying again.");
+      return;
+    }
     setLoading(true);
     try {
       const patientResponse = await apiRequest<any>(`/api/patients/${qrData.id}`);
@@ -96,7 +103,13 @@ export default function PatientDataForm({ qrData, onBack }: PatientDataFormProps
       setMedications(patient.emergencyInfo?.currentMedications || []);
       setInsuranceProvider(patient.medicalInfo?.insurance?.provider || "");
       setInsurancePolicyNumber(patient.medicalInfo?.insurance?.policyNumber || "");
-    } catch (err) {
+    } catch (err: any) {
+      if (err?.isRateLimit) {
+        const retryAfter = err.retryAfter ? parseInt(err.retryAfter, 10) * 1000 : 60000;
+        setRateLimitCooldown(Date.now() + retryAfter);
+        toast.error("You are being rate limited. Please wait a minute before trying again.");
+        return;
+      }
       console.error(err);
       toast.error("Failed to look up patient");
     } finally {
@@ -116,6 +129,10 @@ export default function PatientDataForm({ qrData, onBack }: PatientDataFormProps
 
   const handleSave = async () => {
     if (!patientAuthId) return;
+    if (rateLimitCooldown && Date.now() < rateLimitCooldown) {
+      toast.error("You are being rate limited. Please wait a minute before trying again.");
+      return;
+    }
     setSaving(true);
     try {
       await apiRequest(`/api/patients/${patientAuthId}`, {
@@ -142,6 +159,12 @@ export default function PatientDataForm({ qrData, onBack }: PatientDataFormProps
       queryClient.invalidateQueries({ queryKey: ["patient-medical"] });
       toast.success("Patient medical data saved successfully");
     } catch (err: any) {
+      if (err?.isRateLimit) {
+        const retryAfter = err.retryAfter ? parseInt(err.retryAfter, 10) * 1000 : 60000;
+        setRateLimitCooldown(Date.now() + retryAfter);
+        toast.error("You are being rate limited. Please wait a minute before trying again.");
+        return;
+      }
       console.error(err);
       toast.error(err.message || "Failed to save medical data");
     } finally {
