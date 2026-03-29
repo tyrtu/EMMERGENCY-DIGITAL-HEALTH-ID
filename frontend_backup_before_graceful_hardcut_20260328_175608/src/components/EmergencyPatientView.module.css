@@ -1,0 +1,904 @@
+/* Emergency Patient View Styles */
+
+.emergencyView {
+  padding: 32px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 16px;
+  max-width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .emergencyView {
+    padding: 16px;
+  }
+
+  .priorityBanner {
+    padding: 16px 20px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .emergencyView {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .priorityBanner {
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+  }
+
+  .criticalInfoGrid {
+    padding: 16px;
+    gap: 12px;
+  }
+}
+
+/* Priority Banner */
+.priorityBanner {
+  padding: 20px 24px;
+  border-radius: 12px;
+  border: 1px solid;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  animation: pulse 2s infinite;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.priorityContent h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.priorityContent p {
+  margin: 6px 0 0 0;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Alerts Section */
+.alertsSection {
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1e293b;
+}
+
+.alertsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.alertCard {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.alertCard.critical {
+  background-color: #fee2e2;
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
+.alertCard.caution {
+  background-color: #fef3c7;
+  border-color: #d97706;
+  color: #d97706;
+}
+
+.alertIcon {
+  font-size: 20px;
+}
+
+.alertMessage {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Time-Critical Information */
+.timeCriticalSection {
+  margin-bottom: 24px;
+}
+
+.criticalInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border: 1px solid #dc2626;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+/* Blood Type Card - LARGEST */
+.bloodTypeCard {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border: 1px solid #dc2626;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  grid-column: span 1;
+}
+
+.bloodTypeIcon {
+  margin-bottom: 12px;
+}
+
+.bloodTypeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bloodTypeLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #991b1b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.bloodTypeValue {
+  font-size: 72px;
+  font-weight: 900;
+  color: #dc2626;
+  line-height: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bloodTypeDetails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.universalBadge {
+  background-color: #10b981;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.rareBadge {
+  background-color: #d97706;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Allergies Card */
+.allergiesCard {
+  background-color: #fee2e2;
+  border: 1px solid #dc2626;
+  border-radius: 12px;
+  padding: 20px;
+  grid-column: span 1;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #dc2626;
+}
+
+.allergiesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.allergyItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background-color: white;
+  border-radius: 6px;
+  border-left: 2px solid #dc2626;
+}
+
+.allergyIcon {
+  font-size: 20px;
+}
+
+.allergyText {
+  font-size: 16px;
+  font-weight: 600;
+  color: #991b1b;
+}
+
+/* Patient Info Card */
+.patientInfoCard {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 2px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 24px;
+  grid-column: span 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.patientInfoCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.patientName {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.patientAge {
+  font-size: 17px;
+  color: #475569;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.patientId {
+  font-size: 15px;
+  color: #64748b;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Blood Compatibility */
+.bloodCompatibilitySection {
+  margin-bottom: 24px;
+  padding: 20px;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.compatibilityInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.compatibilityRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.compatibilityLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: #475569;
+  min-width: 120px;
+}
+
+.compatibilityValues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.compatibilityBadge {
+  background-color: #dc2626;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.compatibilityMessage {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background-color: #dbeafe;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+  color: #1e40af;
+  font-size: 14px;
+}
+
+/* Protocols Section */
+.protocolsSection {
+  margin-bottom: 24px;
+}
+
+.protocolsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.protocolCard {
+  background-color: #eff6ff;
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.protocolHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.protocolIcon {
+  font-size: 24px;
+}
+
+.protocolTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e40af;
+  margin: 0;
+}
+
+.protocolSteps {
+  margin: 0;
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.protocolStep {
+  font-size: 14px;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+/* Medications Section */
+.medicationsSection {
+  margin-bottom: 24px;
+}
+
+.medicationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.medicationItem {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background-color: #f3e8ff;
+  border-radius: 8px;
+  border-left: 4px solid #8b5cf6;
+  font-size: 14px;
+  color: #6b21a8;
+}
+
+/* Emergency Contact */
+.emergencyContactSection {
+  margin-bottom: 24px;
+}
+
+.emergencyContactCard {
+  background-color: #f0fdf4;
+  border: 2px solid #10b981;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.contactInfo {
+  margin-bottom: 16px;
+}
+
+.contactName {
+  font-size: 20px;
+  font-weight: 700;
+  color: #047857;
+  margin-bottom: 4px;
+}
+
+.contactRelation {
+  font-size: 14px;
+  color: #059669;
+}
+
+.contactActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contactActionBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.contactActionBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.actionIcon {
+  font-size: 18px;
+}
+
+/* Additional Info Section */
+.additionalInfoSection {
+  margin-bottom: 24px;
+}
+
+.toggleButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.2s;
+}
+
+.toggleButton:hover {
+  background-color: #e2e8f0;
+}
+
+.toggleIcon {
+  font-size: 12px;
+}
+
+.additionalInfoContent {
+  margin-top: 16px;
+  padding: 20px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.infoSubsection {
+  margin-bottom: 20px;
+}
+
+.infoSubsection h5 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+.conditionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.conditionItem {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: white;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.criticalNotes {
+  padding: 12px;
+  background-color: #fee2e2;
+  border-left: 2px solid #dc2626;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #991b1b;
+  line-height: 1.6;
+}
+
+.doctorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.doctorName {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.doctorHospital {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.doctorContact {
+  display: flex;
+  align-items: center;
+  color: #3b82f6;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.doctorContact:hover {
+  text-decoration: underline;
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.printBtn,
+.downloadBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.printBtn {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.downloadBtn {
+  background-color: #10b981;
+  color: white;
+}
+
+.printBtn:hover,
+.downloadBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Download Menu with Dropdown */
+.downloadMenu {
+  position: relative;
+}
+
+.downloadDropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  min-width: 180px;
+  overflow: hidden;
+}
+
+.downloadMenu:hover .downloadDropdown {
+  display: block;
+}
+
+.downloadOption {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: none;
+  background: white;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: #1e293b;
+}
+
+.downloadOption:hover {
+  background: #f3f4f6;
+}
+
+.downloadOption:first-child {
+  border-top: none;
+}
+
+.downloadOption svg {
+  font-size: 18px;
+  color: #64748b;
+}
+
+/* Unconscious Mode */
+.unconsciousMode {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background-color: #fef3c7;
+  border: 2px solid #d97706;
+  border-radius: 8px;
+  color: #92400e;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+/* No Data */
+.noData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #cbd5e1;
+}
+
+.noData p {
+  margin-top: 16px;
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .criticalInfoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .bloodTypeValue {
+    font-size: 56px;
+  }
+
+  .alertsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .contactActions {
+    flex-direction: column;
+  }
+
+  .contactActionBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
+
+  .printBtn,
+  .downloadBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Primary Doctor Card */
+.primaryDoctorCard {
+  background: #eff6ff;
+  border: 2px solid #3b82f6;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.primaryDoctorCard .cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.primaryDoctorCard .cardTitle {
+  font-weight: 600;
+  font-size: 16px;
+  color: #1e40af;
+}
+
+.doctorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.doctorName {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e40af;
+}
+
+.doctorHospital {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.doctorContact {
+  display: inline-flex;
+  align-items: center;
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #3b82f6;
+  transition: all 0.2s;
+}
+
+.doctorContact:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+/* Conditions Card */
+.conditionsCard {
+  background: #fef2f2;
+  border: 1px solid #dc2626;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.conditionsCard .cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.conditionsCard .cardTitle {
+  font-weight: 600;
+  font-size: 16px;
+  color: #991b1b;
+}
+
+/* More Info Section */
+.moreInfoSection {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 2px solid #e5e7eb;
+}
+
+.moreInfoButton {
+  width: 100%;
+  padding: 14px 20px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.moreInfoButton:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.moreInfoButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fullPatientData {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.conditionStatus {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.conditionDate {
+  color: #64748b;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.conditionTreatment {
+  color: #475569;
+  font-size: 13px;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.insuranceInfo,
+.lifestyleInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: white;
+  border-radius: 6px;
+}
+
+.insuranceInfo > div,
+.lifestyleInfo > div {
+  padding: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.insuranceInfo > div:last-child,
+.lifestyleInfo > div:last-child {
+  border-bottom: none;
+}
+

@@ -32,6 +32,17 @@ router.post("/", verifyToken, async (req, res) => {
     });
     
     if (existing) {
+      // If profile was found by email but authId changed (for example after switching Supabase projects),
+      // migrate authId so subsequent GET /api/profiles/:authId works for the current login identity.
+      if (existing.email === email && existing.authId !== authId) {
+        existing.authId = authId;
+        if (fullName && !existing.fullName) {
+          existing.fullName = fullName;
+        }
+        await existing.save();
+        console.log("🔧 Profile authId migrated for email:", email);
+      }
+
       console.log("🔧 Profile already exists:", existing._id);
       return res.status(200).json({
         success: true,
