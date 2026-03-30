@@ -702,7 +702,7 @@ export default function MedicDashboard() {
 
         <div className="flex-1 p-3 pb-28 sm:p-6 sm:pb-6">
           {/* Stats */}
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+          <div className="grid gap-3 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 mb-6">
             {stats.map((stat) => (
               <motion.div
                 key={stat.label}
