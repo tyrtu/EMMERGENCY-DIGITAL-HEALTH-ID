@@ -11,6 +11,8 @@ import Register from "./pages/Register";
 import PatientDashboard from "./pages/PatientDashboard";
 import MedicDashboard from "./pages/MedicDashboard";
 import PatientOnboarding from "./pages/PatientOnboarding";
+import ResetPassword from "./pages/ResetPassword";
+import SetNewPassword from "./pages/SetNewPassword";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +32,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/set-new-password" element={<SetNewPassword />} />
             <Route
               path="/patient/dashboard"
               element={
