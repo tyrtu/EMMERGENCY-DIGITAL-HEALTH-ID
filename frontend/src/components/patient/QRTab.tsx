@@ -148,12 +148,11 @@ export default function QRTab() {
       {/* Card Preview */}
       <div className="card-medical p-6">
         {cardPreview ? (
-          <div className="w-full overflow-hidden rounded-xl border border-border">
+          <div className="w-full flex justify-center items-center py-6">
             <img
               src={cardPreview}
               alt="Medical QR Code"
-              className="w-full h-auto"
-              style={{ aspectRatio: "1012 / 638" }}
+              style={{ width: 320, height: 320, maxWidth: "90vw", maxHeight: "90vw", objectFit: "contain", background: "#fff", padding: 16, borderRadius: 16, boxShadow: "0 2px 12px 0 rgba(0,0,0,0.04)" }}
             />
           </div>
         ) : (

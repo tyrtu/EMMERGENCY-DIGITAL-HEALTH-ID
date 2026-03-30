@@ -51,8 +51,8 @@ export default function Index() {
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-              <Heart className="h-5 w-5 text-primary-foreground" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: '#16a085' }}>
+              <Heart className="h-5 w-5" style={{ color: '#fff' }} />
             </div>
             <span className="text-lg font-bold text-foreground">Emergency Health ID</span>
           </Link>
@@ -66,7 +66,7 @@ export default function Index() {
               <Button variant="ghost" size="sm">Sign In</Button>
             </Link>
             <Link to="/register">
-              <Button size="sm">Get Started</Button>
+              <Button size="sm" style={{ background: '#16a085', color: '#fff', border: 'none' }}>Get Started</Button>
             </Link>
           </div>
         </div>
@@ -74,8 +74,8 @@ export default function Index() {
 
       {/* Hero */}
       <section className="relative overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-32">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-safe/5" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#e8f6f3] via-transparent to-[#f5f5f5]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px]" style={{ background: '#e8f6f3', borderRadius: '9999px', filter: 'blur(48px)' }} />
         <div className="container relative">
           <div className="mx-auto max-w-3xl text-center">
             <motion.div
@@ -83,9 +83,21 @@ export default function Index() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Badge variant="info" className="mb-6">
+              <div style={{
+                display: 'inline-block',
+                background: '#f4f4f4',
+                color: '#222',
+                borderRadius: '6px',
+                padding: '6px 18px',
+                fontSize: '1rem',
+                fontWeight: 500,
+                letterSpacing: '0.01em',
+                boxShadow: '0 1px 4px 0 rgba(0,0,0,0.04)',
+                border: '1px solid #e0e0e0',
+                marginBottom: '1.5rem',
+              }}>
                 HIPAA Compliant · AES-256 Encrypted
-              </Badge>
+              </div>
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -94,7 +106,7 @@ export default function Index() {
               className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
             >
               Your Medical Identity,{" "}
-              <span className="text-primary">Instantly Accessible</span>
+              <span style={{ color: '#16a085', fontWeight: 700 }}>Instantly Accessible</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -113,7 +125,7 @@ export default function Index() {
               className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
             >
               <Link to="/register">
-                <Button size="lg" className="gap-2 px-8">
+                <Button size="lg" className="gap-2 px-8" style={{ background: '#16a085', color: '#fff', border: 'none' }}>
                   Create Your Health ID <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
@@ -134,7 +146,7 @@ export default function Index() {
           >
             {stats.map((stat) => (
               <div key={stat.label} className="card-medical text-center">
-                <div className="text-2xl font-bold text-primary">{stat.value}</div>
+                <div className="text-2xl font-bold" style={{ color: '#16a085' }}>{stat.value}</div>
                 <div className="text-xs font-medium text-muted-foreground mt-1 uppercase tracking-wider">{stat.label}</div>
               </div>
             ))}
@@ -164,8 +176,8 @@ export default function Index() {
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 className="card-medical group hover:border-primary/30 transition-all duration-300"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors">
-                  <feature.icon className="h-5 w-5 text-primary" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg mb-4" style={{ background: '#e8f6f3' }}>
+                  <feature.icon className="h-5 w-5" style={{ color: '#16a085' }} />
                 </div>
                 <h3 className="text-base font-semibold text-foreground">{feature.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
@@ -198,7 +210,7 @@ export default function Index() {
                 transition={{ duration: 0.4, delay: i * 0.15 }}
                 className="text-center"
               >
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground text-xl font-bold mb-4">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl text-xl font-bold mb-4" style={{ background: '#16a085', color: '#fff' }}>
                   {item.step}
                 </div>
                 <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
@@ -214,7 +226,7 @@ export default function Index() {
         <div className="container">
           <div className="grid gap-12 lg:grid-cols-2 items-center max-w-5xl mx-auto">
             <div>
-              <Badge variant="info" className="mb-4">Security First</Badge>
+              <Badge variant="info" className="mb-4" style={{ background: '#e8f6f3', color: '#16a085' }}>Security First</Badge>
               <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
                 Your Health Data, Fortified
               </h2>
@@ -241,8 +253,8 @@ export default function Index() {
             <div className="relative">
               <div className="card-medical p-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Shield className="h-5 w-5 text-primary" />
+                  <div className="h-10 w-10 rounded-lg flex items-center justify-center" style={{ background: '#e8f6f3' }}>
+                    <Shield className="h-5 w-5" style={{ color: '#16a085' }} />
                   </div>
                   <div>
                     <div className="text-sm font-semibold text-foreground">Security Status</div>
@@ -271,19 +283,18 @@ export default function Index() {
       {/* CTA */}
       <section className="py-20 lg:py-28">
         <div className="container">
-          <div className="relative overflow-hidden rounded-2xl bg-primary p-10 sm:p-16 text-center">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary-dark to-primary" />
+          <div className="relative overflow-hidden rounded-2xl p-10 sm:p-16 text-center" style={{ background: '#16a085' }}>
             <div className="relative">
-              <h2 className="text-3xl font-bold text-primary-foreground sm:text-4xl">
+              <h2 className="text-3xl font-bold text-white sm:text-4xl">
                 Ready to Protect What Matters Most?
               </h2>
-              <p className="mt-4 text-primary-foreground/80 max-w-xl mx-auto">
+              <p className="mt-4 text-white/80 max-w-xl mx-auto">
                 Create your Emergency Health ID today and ensure your critical medical information 
                 is always accessible when it matters most.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link to="/register">
-                  <Button size="lg" variant="secondary" className="gap-2 px-8">
+                  <Button size="lg" variant="secondary" className="gap-2 px-8" style={{ background: '#fff', color: '#16a085', border: 'none' }}>
                     Get Started Free <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
@@ -298,8 +309,8 @@ export default function Index() {
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                <Heart className="h-4 w-4 text-primary-foreground" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: '#16a085' }}>
+                <Heart className="h-4 w-4" style={{ color: '#fff' }} />
               </div>
               <span className="font-semibold text-foreground">Emergency Health ID</span>
             </div>
