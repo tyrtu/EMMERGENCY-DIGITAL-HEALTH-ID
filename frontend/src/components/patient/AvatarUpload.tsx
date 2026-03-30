@@ -66,9 +66,8 @@ export default function AvatarUpload({ currentUrl, size = "md" }: AvatarUploadPr
   const avatarSeed =
     user?.user_metadata?.full_name || user?.email || user?.id || "Emergency Health ID";
 
-  const resolvedAvatar = avatarLoadFailed
-    ? buildRandomAvatarUrl(avatarSeed)
-    : resolveAvatarUrl(currentUrl || null, avatarSeed);
+  // Strictly show photo if present and not failed, fallback to initials only if no photo or image fails
+  const showPhoto = currentUrl && !avatarLoadFailed;
 
   return (
     <div className="relative group">
@@ -78,9 +77,9 @@ export default function AvatarUpload({ currentUrl, size = "md" }: AvatarUploadPr
       >
         {uploading ? (
           <Loader2 className={`${iconSize[size]} animate-spin text-primary`} />
-        ) : resolvedAvatar ? (
+        ) : showPhoto ? (
           <img
-            src={resolvedAvatar}
+            src={resolveAvatarUrl(currentUrl || null, avatarSeed)}
             alt="Avatar"
             className="h-full w-full object-cover"
             onError={() => setAvatarLoadFailed(true)}
