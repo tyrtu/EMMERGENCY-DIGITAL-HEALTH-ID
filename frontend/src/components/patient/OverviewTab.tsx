@@ -28,7 +28,7 @@ export default function OverviewTab() {
     <div className="space-y-6">
       {/* Quick Stats */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="card-medical">
+        <div className="card-medical max-w-full w-full">
           <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
             <Heart className="h-3.5 w-3.5" /> Health ID
           </div>
@@ -36,7 +36,7 @@ export default function OverviewTab() {
             {profile?.health_id || "—"}
           </div>
         </div>
-        <div className="card-medical">
+        <div className="card-medical max-w-full w-full">
           <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
             <Droplets className="h-3.5 w-3.5" /> Blood Type
           </div>
@@ -44,14 +44,14 @@ export default function OverviewTab() {
             {medical?.blood_type || "—"}
           </div>
         </div>
-        <div className="card-medical">
+        <div className="card-medical max-w-full w-full">
           <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
             <AlertTriangle className="h-3.5 w-3.5" /> Allergies
           </div>
           <div className="mt-2 text-2xl font-bold text-emergency">{allergies.length}</div>
           <div className="mt-1 text-xs text-muted-foreground">active alerts</div>
         </div>
-        <div className="card-medical">
+        <div className="card-medical max-w-full w-full">
           <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
             <Pill className="h-3.5 w-3.5" /> Medications
           </div>
@@ -62,7 +62,7 @@ export default function OverviewTab() {
 
       {/* Allergies & Conditions */}
       <div className="grid gap-4 lg:grid-cols-2">
-        <div className="card-medical">
+        <div className="card-medical max-w-full w-full">
           <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
             <AlertTriangle className="h-4 w-4 text-emergency" /> Allergies
           </h3>
@@ -74,7 +74,7 @@ export default function OverviewTab() {
             )}
           </div>
         </div>
-        <div className="card-medical">
+        <div className="card-medical max-w-full w-full">
           <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
             <Activity className="h-4 w-4 text-caution" /> Active Conditions
           </h3>
@@ -92,7 +92,7 @@ export default function OverviewTab() {
       <VitalsCard />
 
       {/* Emergency Contact */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
           <Phone className="h-4 w-4 text-primary" /> Emergency Contact
         </h3>
@@ -110,7 +110,7 @@ export default function OverviewTab() {
       </div>
 
       {/* Basic Profile Details */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-3">Profile Details</h3>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-xs">
           <div className="rounded-lg bg-muted/40 p-3">

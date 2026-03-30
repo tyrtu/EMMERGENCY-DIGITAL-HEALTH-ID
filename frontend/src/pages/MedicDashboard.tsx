@@ -677,15 +677,15 @@ export default function MedicDashboard() {
           </div>
         </header>
 
-        <div className="flex-1 p-6 pb-24 sm:pb-6">
+        <div className="flex-1 p-3 pb-28 sm:p-6 sm:pb-6">
           {/* Stats */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-6">
             {stats.map((stat) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="card-medical"
+                className="card-medical max-w-full w-full"
               >
                 <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{stat.label}</div>
                 <div className="mt-1 text-2xl font-bold text-foreground">{stat.value}</div>
@@ -756,7 +756,7 @@ export default function MedicDashboard() {
                     <Loader2 className="h-6 w-6 animate-spin text-primary" />
                   </div>
                 ) : scansToDisplay.length === 0 ? (
-                  <div className="card-medical text-center py-12">
+                  <div className="card-medical max-w-full w-full text-center py-12">
                     <ScanLine className="h-10 w-10 text-muted-foreground/40 mx-auto mb-3" />
                     <p className="text-sm text-muted-foreground">
                       {searchQuery ? "No matching scans found" : "No scans yet — tap the scan button to get started"}
@@ -766,7 +766,7 @@ export default function MedicDashboard() {
                   scansToDisplay.map((scan) => (
                     <div
                       key={scan.id}
-                      className="card-medical hover:border-primary/30 transition-all cursor-pointer"
+                      className="card-medical max-w-full w-full hover:border-primary/30 transition-all cursor-pointer"
                       onClick={() => {
                         setScannedPatient({
                           v: 1,
@@ -851,7 +851,7 @@ export default function MedicDashboard() {
 
             {activeView === "search" && (
               <div className="space-y-4">
-                <div className="card-medical space-y-4">
+                <div className="card-medical max-w-full w-full space-y-4">
                   <div className="flex items-center justify-between gap-3 flex-wrap">
                     <div>
                       <h3 className="text-sm font-semibold text-foreground">Find Patient By EMR ID</h3>
@@ -907,7 +907,7 @@ export default function MedicDashboard() {
                 </div>
 
                 {patientDraft && (
-                  <div className="card-medical space-y-4">
+                  <div className="card-medical max-w-full w-full space-y-4">
                     <div className="flex items-center justify-between gap-3 flex-wrap">
                       <div>
                         <h3 className="text-sm font-semibold text-foreground">{patientDraft.fullName}</h3>
@@ -918,7 +918,7 @@ export default function MedicDashboard() {
                         Save Patient Updates
                       </Button>
                     </div>
-                    <div className="grid gap-3 md:grid-cols-2">
+                    <div className="grid gap-3 grid-cols-1 md:grid-cols-2">
                       {[
                         { label: "Blood Group", field: "bloodGroup" },
                         { label: "Contact Phone", field: "contactPhone" },
@@ -939,7 +939,7 @@ export default function MedicDashboard() {
                         </div>
                       ))}
                     </div>
-                    <div className="grid gap-3 md:grid-cols-3">
+                    <div className="grid gap-3 grid-cols-1 md:grid-cols-3">
                       {[
                         { label: "Emergency Contact Name", field: "emergencyContactName" },
                         { label: "Relationship", field: "emergencyContactRelation" },
@@ -954,7 +954,7 @@ export default function MedicDashboard() {
                         </div>
                       ))}
                     </div>
-                    <div className="grid gap-3 md:grid-cols-3">
+                    <div className="grid gap-3 grid-cols-1 md:grid-cols-3">
                       {[
                         { label: "Critical Allergies (line or comma separated)", field: "allergiesText" },
                         { label: "Critical Conditions (line or comma separated)", field: "conditionsText" },
@@ -980,7 +980,7 @@ export default function MedicDashboard() {
             )}
 
             {activeView === "profile" && (
-              <div className="card-medical space-y-4">
+              <div className="card-medical max-w-full w-full space-y-4">
                 <div className="flex items-center justify-between gap-3 flex-wrap">
                   <div>
                     <h3 className="text-sm font-semibold text-foreground">Medic Profile</h3>
@@ -996,7 +996,7 @@ export default function MedicDashboard() {
                   </div>
                 ) : (
                   <>
-                    <div className="grid gap-3 md:grid-cols-2">
+                    <div className="grid gap-3 grid-cols-1 md:grid-cols-2">
                       {[
                         { label: "Full Name", field: "name" },
                         { label: "Email", field: "email" },
@@ -1028,7 +1028,7 @@ export default function MedicDashboard() {
 
             {activeView === "casualty" && (
               <div className="space-y-4">
-                <div className="card-medical space-y-3">
+                <div className="card-medical max-w-full w-full space-y-3">
                   <div className="flex items-center justify-between gap-3 flex-wrap">
                     <div>
                       <h3 className="text-sm font-semibold text-foreground">Multi-Casualty Triage</h3>
@@ -1051,7 +1051,7 @@ export default function MedicDashboard() {
                       </Button>
                     </div>
                   </div>
-                  <div className="grid gap-3 sm:grid-cols-3">
+                  <div className="grid gap-3 grid-cols-1 sm:grid-cols-3">
                     <div className="rounded-lg border border-emergency/30 bg-emergency/5 p-3">
                       <p className="text-xs text-muted-foreground">Critical</p>
                       <p className="text-xl font-bold text-emergency">{casualtyStats.critical}</p>
@@ -1072,8 +1072,8 @@ export default function MedicDashboard() {
                   )}
                 </div>
 
-                <div className="grid gap-4 lg:grid-cols-[320px_1fr]">
-                  <div className="card-medical space-y-3">
+                <div className="grid gap-4 grid-cols-1 lg:grid-cols-[320px_1fr]">
+                  <div className="card-medical max-w-full w-full space-y-3">
                     <div className="flex items-center justify-between">
                       <h4 className="text-sm font-semibold text-foreground">Casualty Queue</h4>
                       <Badge variant="outline">{casualtyList.length}</Badge>
@@ -1113,7 +1113,7 @@ export default function MedicDashboard() {
                     </Button>
                   </div>
 
-                  <div className="card-medical">
+                  <div className="card-medical max-w-full w-full">
                     {!selectedCasualty ? (
                       <div className="py-16 text-center">
                         <Users className="h-10 w-10 text-muted-foreground/40 mx-auto mb-3" />

@@ -33,7 +33,7 @@ export default function MedicalTab() {
   return (
     <div className="space-y-6">
       {/* Blood Type & Key Info */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-4">Key Medical Info</h3>
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="rounded-lg bg-muted/50 p-3">
@@ -52,7 +52,7 @@ export default function MedicalTab() {
       </div>
 
       {/* Medications */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
           <Pill className="h-4 w-4 text-primary" /> Current Medications
         </h3>
@@ -71,7 +71,7 @@ export default function MedicalTab() {
       </div>
 
       {/* Conditions */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
           <Activity className="h-4 w-4 text-caution" /> Chronic Conditions
         </h3>
@@ -87,7 +87,7 @@ export default function MedicalTab() {
       </div>
 
       {/* Detailed Conditions */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
           <HeartPulse className="h-4 w-4 text-primary" /> Detailed Medical Conditions
         </h3>
@@ -114,7 +114,7 @@ export default function MedicalTab() {
       </div>
 
       {/* Immunizations */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
           <Syringe className="h-4 w-4 text-safe" /> Immunizations
         </h3>
@@ -138,7 +138,7 @@ export default function MedicalTab() {
       </div>
 
       {/* Family Medical History */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
           <Users className="h-4 w-4 text-caution" /> Family Medical History
         </h3>

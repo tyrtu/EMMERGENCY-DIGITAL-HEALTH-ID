@@ -128,7 +128,7 @@ export default function QRTab() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-6 px-2 sm:px-0">
       {/* Card Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -146,7 +146,7 @@ export default function QRTab() {
       </div>
 
       {/* Card Preview */}
-      <div className="card-medical p-6">
+      <div className="card-medical p-4 sm:p-6 max-w-full w-full">
         {cardPreview ? (
           <div className="w-full flex justify-center items-center py-6">
             <img
@@ -215,7 +215,7 @@ export default function QRTab() {
       </div>
 
       {/* QR Code Information */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
           <QrCode className="h-4 w-4 text-primary" /> QR Code Information
         </h3>
@@ -235,7 +235,7 @@ export default function QRTab() {
       </div>
 
       {/* Emergency Information */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
           <AlertTriangle className="h-4 w-4 text-emergency" /> Emergency Information
         </h3>
@@ -281,7 +281,7 @@ export default function QRTab() {
       </div>
 
       {/* Emergency Contacts */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
           <Phone className="h-4 w-4 text-primary" /> Emergency Contacts
         </h3>
@@ -305,7 +305,7 @@ export default function QRTab() {
       </div>
 
       {/* QR Metadata */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-3">QR Metadata</h3>
         <div className="space-y-2 text-xs">
           <div className="flex justify-between py-1.5 border-b border-border">
@@ -326,7 +326,7 @@ export default function QRTab() {
       </div>
 
       {/* How To Use */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-3">How to Use Your Medical QR Code</h3>
         <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-5">
           <li>Save to your phone photos for quick access.</li>
@@ -338,7 +338,7 @@ export default function QRTab() {
       </div>
 
       {/* Data Summary */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-3">Card Data Summary</h3>
         <div className="space-y-2 text-xs">
           {[

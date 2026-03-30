@@ -37,7 +37,7 @@ export default function MedicalVisitsTab() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="card-medical">
+      <div className="card-medical max-w-full w-full">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-sm font-semibold text-foreground">Recent Medical Visits</h3>
@@ -61,7 +61,7 @@ export default function MedicalVisitsTab() {
           const displayNotes = hasLongNotes && !isExpanded ? `${rawNotes.slice(0, 140)}...` : rawNotes;
 
           return (
-            <div key={visit.id} className="card-medical space-y-4">
+            <div key={visit.id} className="card-medical max-w-full w-full space-y-4">
               {/* Visit Header */}
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">

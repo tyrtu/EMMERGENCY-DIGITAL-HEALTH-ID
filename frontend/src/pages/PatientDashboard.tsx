@@ -121,7 +121,7 @@ export default function PatientDashboard() {
 
       {/* Main */}
       <div className="flex-1 flex flex-col">
-        <header className="h-16 border-b border-border bg-card flex items-center justify-between px-6">
+        <header className="h-16 border-b border-border bg-card flex items-center justify-between px-4 sm:px-6">
           <div>
             <h1 className="text-lg font-bold text-foreground">Patient Dashboard</h1>
             <p className="text-xs text-muted-foreground">Manage your health identity</p>
@@ -201,7 +201,7 @@ export default function PatientDashboard() {
           </div>
         </div>
 
-        <main className="flex-1 p-6 pb-24 lg:pb-6 overflow-y-auto">
+        <main className="flex-1 p-3 pb-28 sm:p-6 lg:pb-6 overflow-y-auto">
           <motion.div
             key={activeTab}
             initial={{ opacity: 0, y: 10 }}
