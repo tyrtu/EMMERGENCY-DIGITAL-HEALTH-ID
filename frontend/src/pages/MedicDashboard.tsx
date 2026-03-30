@@ -6,6 +6,7 @@ import {
   Droplets, Search, FileText, Loader2, Menu, Stethoscope,
   Users, AlertTriangle, Plus, Trash2, Save
 } from "lucide-react";
+import AvatarUpload from "@/components/patient/AvatarUpload";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -32,6 +33,32 @@ type TriageLevel = "critical" | "caution" | "normal";
 interface CasualtyRecord extends QRData {
   scannedAt: string;
   triage: TriageLevel;
+}
+
+
+interface PatientEditDraft {
+  authId: string;
+  healthId: string;
+  fullName: string;
+  bloodGroup: string;
+  contactPhone: string;
+  contactEmail: string;
+  preferredHospitalPhone: string;
+  insuranceProvider: string;
+  insurancePolicyNumber: string;
+  criticalNotes: string;
+}
+
+interface MedicRecordLite {
+  _id?: string;
+  authId?: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  specialization?: string;
+  licenseNumber?: string;
+  verified?: boolean;
+  avatar_url?: string | null;
 }
 
 interface PatientEditDraft {
@@ -65,17 +92,7 @@ interface MedicProfileDraft {
   specialization: string;
   licenseNumber: string;
   verified: boolean;
-}
-
-interface MedicRecordLite {
-  _id?: string;
-  authId?: string;
-  name?: string;
-  email?: string;
-  phone?: string;
-  specialization?: string;
-  licenseNumber?: string;
-  verified?: boolean;
+  avatar_url?: string | null;
 }
 
 interface PatientRecordLite {
@@ -295,6 +312,7 @@ export default function MedicDashboard() {
             specialization: String(matched.specialization || ""),
             licenseNumber: String(matched.licenseNumber || ""),
             verified: Boolean(matched.verified),
+            avatar_url: matched.avatar_url || null,
           });
           return;
         }
@@ -306,12 +324,13 @@ export default function MedicDashboard() {
       setMedicProfileDraft({
         id: null,
         authId: user.id,
-        name: String(user.user_metadata?.full_name || user.email?.split("@")[0] || "Medic"),
+        name: String(user.user_metadata?.full_name || user.email?.split("@") [0] || "Medic"),
         email: String(user.email || ""),
         phone: "",
         specialization: "General Practice",
         licenseNumber: "",
         verified: false,
+        avatar_url: null,
       });
     };
     void loadMedicProfile();
@@ -668,8 +687,12 @@ export default function MedicDashboard() {
                 </SheetContent>
               </Sheet>
             </div>
-            <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center">
-              <User className="h-4 w-4 text-primary" />
+            <div className="h-9 w-9 flex items-center justify-center">
+              <AvatarUpload
+                currentUrl={medicProfileDraft?.avatar_url}
+                size="sm"
+                key={medicProfileDraft?.authId || "medic-avatar"}
+              />
             </div>
             <Button variant="ghost" size="sm" onClick={() => void signOut()}>
               <LogOut className="h-4 w-4" />
