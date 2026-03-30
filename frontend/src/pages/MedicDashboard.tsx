@@ -1305,9 +1305,7 @@ export default function MedicDashboard() {
             </div>
           )}
         </motion.div>
-      </div>
-      </div>
-
+      {/* Show scanner modal and floating scan button at the root level */}
       {showScanner && (
         <QRScanner onScanResult={handleScanResult} onClose={() => setShowScanner(false)} />
       )}
