@@ -5,6 +5,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { usePatientProfile, usePatientMedicalData } from "@/hooks/usePatientData";
 import VitalsCard from "@/components/patient/VitalsCard";
+import VitalsAlertContainer from "@/components/ai/VitalsAlertContainer";
 
 export default function OverviewTab() {
   const { data: profile, isLoading: pLoading } = usePatientProfile();
@@ -88,8 +89,10 @@ export default function OverviewTab() {
         </div>
       </div>
 
+
       {/* Vitals */}
       <VitalsCard />
+      <VitalsAlertContainer />
 
       {/* Emergency Contact */}
       <div className="card-medical max-w-full w-full">

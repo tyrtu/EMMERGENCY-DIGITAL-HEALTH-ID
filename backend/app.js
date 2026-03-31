@@ -18,7 +18,9 @@ import medicRoutes from "./src/routes/medicRoutes.js";
 import analyticRoutes from "./src/routes/AnalyticRoutes.js";
 import medicalRecordRoutes from "./src/routes/medicalRecordRoutes.js";
 import medicationLogRoutes from "./src/routes/medicationLogRoutes.js";
+
 import llmTriageRoutes from "./src/routes/llmTriageRoutes.js";
+import llmVitalsRoutes from "./src/routes/llmVitalsRoutes.js";
 
 dotenv.config();
 
@@ -69,6 +71,7 @@ app.use('/uploads', express.static('uploads', {
 
 
 app.use("/api/llm-triage", llmTriageRoutes);
+app.use("/api/llm-vitals", llmVitalsRoutes);
 app.use("/api/qr", /* qrLimiter, */ qrRoutes); // Disabled qrLimiter for testing
 app.use("/api/analytics", /* analyticsLimiter, */ analyticRoutes); // Disabled analyticsLimiter for testing
 app.use("/api/emergency-contacts", emergencyContactRoutes);
