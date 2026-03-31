@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 // Advanced AI triage (LLM) via backend proxy
 async function fetchLLMTriage(patientData: any) {
   try {
-    const response = await fetch("/api/llm-triage", {
+    const { API_BASE_URL } = await import("@/lib/apiClient");
+    const response = await fetch(`${API_BASE_URL}/llm-triage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ patientData }),

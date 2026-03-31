@@ -21,7 +21,8 @@ export default function PatientTriageCard() {
     const run = async () => {
       setLoading(true);
       try {
-        const res = await fetch("/api/llm-triage", {
+        const { API_BASE_URL } = await import("@/lib/apiClient");
+        const res = await fetch(`${API_BASE_URL}/llm-triage`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ patientData }),
