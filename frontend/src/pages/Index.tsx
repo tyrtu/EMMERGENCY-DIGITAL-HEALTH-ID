@@ -13,7 +13,7 @@ const features = [
   {
     icon: Shield,
     title: "Military-Grade Security",
-    description: "AES-256 encryption, HIPAA-compliant data handling, and rotating tokens for maximum protection.",
+    description: "AES-256 encryption, secure data handling, and rotating tokens for maximum protection.",
   },
   {
     icon: Activity,
@@ -41,7 +41,7 @@ const stats = [
   { value: "< 2s", label: "Emergency Data Access" },
   { value: "256-bit", label: "AES Encryption" },
   { value: "99.9%", label: "Platform Uptime" },
-  { value: "HIPAA", label: "Fully Compliant" },
+
 ];
 
 export default function Index() {
@@ -96,7 +96,7 @@ export default function Index() {
                 border: '1px solid #e0e0e0',
                 marginBottom: '1.5rem',
               }}>
-                HIPAA Compliant · AES-256 Encrypted
+                AES-256 Encrypted
               </div>
             </motion.div>
             <motion.h1
@@ -238,7 +238,7 @@ export default function Index() {
                 {[
                   "AES-256-GCM encryption for all QR payloads",
                   "Rotating tokens with 24-hour expiry",
-                  "HIPAA & GDPR compliant data handling",
+                  "GDPR compliant data handling",
                   "Complete audit trail of all data access",
                   "Role-based access control (Patient / Medic / Admin)",
                   "Rate limiting on all sensitive endpoints",
@@ -315,7 +315,7 @@ export default function Index() {
               <span className="font-semibold text-foreground">Emergency Health ID</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              © 2025 Emergency Health ID. All rights reserved. HIPAA Compliant.
+              © 2025 Emergency Health ID. All rights reserved.
             </p>
           </div>
         </div>

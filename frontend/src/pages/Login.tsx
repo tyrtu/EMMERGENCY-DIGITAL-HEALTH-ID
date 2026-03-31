@@ -68,7 +68,7 @@ export default function Login() {
             generate QR codes, and stay prepared for emergencies.
           </p>
           <div className="mt-12 space-y-4">
-            {["Instant QR-based access", "AI-powered triage", "HIPAA compliant"].map((item) => (
+            {["Instant QR-based access", "AI-powered triage"].map((item) => (
               <div key={item} className="flex items-center gap-3">
                 <div className="h-2 w-2 rounded-full bg-primary-foreground/60" />
                 <span className="text-sm text-primary-foreground/80">{item}</span>
