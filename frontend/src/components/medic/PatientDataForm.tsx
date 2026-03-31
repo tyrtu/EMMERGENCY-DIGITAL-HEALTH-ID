@@ -1,5 +1,26 @@
 import { useState, useEffect } from "react";
+// import Groq from "groq-sdk";
+// Advanced AI triage (LLM) via backend proxy
+async function fetchLLMTriage(patientData: any) {
+  try {
+    const response = await fetch("/api/llm-triage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ patientData }),
+    });
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error || "LLM triage failed");
+    }
+    const data = await response.json();
+    return data.triage || null;
+  } catch (e) {
+    console.error('[LLM] Error:', e);
+    return null;
+  }
+}
 import { motion } from "framer-motion";
+import { TriageDisplay } from "./TriageDisplay";
 import {
   ArrowLeft, Droplets, Pill, AlertTriangle, Activity,
   Save, Loader2, X, Plus, User
@@ -25,6 +46,13 @@ interface PatientDataFormProps {
 const BLOOD_TYPES = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
 
+function getTriageSuggestion(allergies: string[], conditions: string[]) {
+  const total = (allergies?.length || 0) + (conditions?.length || 0);
+  if (total >= 3) return { level: "Critical", color: "emergency", advice: "Immediate attention required. Monitor closely and prepare for escalation." };
+  if (total >= 1) return { level: "Caution", color: "caution", advice: "Monitor patient and review allergies/conditions before treatment." };
+  return { level: "Normal", color: "success", advice: "No critical allergies or conditions detected." };
+}
+
 export default function PatientDataForm({ qrData, onBack }: PatientDataFormProps) {
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -44,12 +72,36 @@ export default function PatientDataForm({ qrData, onBack }: PatientDataFormProps
   const [medicationInput, setMedicationInput] = useState("");
   const [insuranceProvider, setInsuranceProvider] = useState("");
   const [insurancePolicyNumber, setInsurancePolicyNumber] = useState("");
+  const [llmTriage, setLlmTriage] = useState<string | null>(null);
+  const [llmLoading, setLlmLoading] = useState(false);
   // Cooldown state for rate limiting
   const [rateLimitCooldown, setRateLimitCooldown] = useState<number | null>(null);
 
   useEffect(() => {
     lookupPatient();
   }, [qrData.id]);
+
+  // Advanced AI triage effect
+  useEffect(() => {
+    const runLLM = async () => {
+      setLlmLoading(true);
+      const patientData = {
+        bloodType,
+        allergies,
+        conditions,
+        medications,
+        insuranceProvider,
+        insurancePolicyNumber,
+        profile: patientProfile,
+      };
+      const result = await fetchLLMTriage(patientData);
+      setLlmTriage(result);
+      setLlmLoading(false);
+    };
+    // Always run LLM triage for testing
+    runLLM();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bloodType, allergies, conditions, medications, insuranceProvider, insurancePolicyNumber, patientProfile]);
 
   const lookupPatient = async () => {
     if (rateLimitCooldown && Date.now() < rateLimitCooldown) {
@@ -180,12 +232,15 @@ export default function PatientDataForm({ qrData, onBack }: PatientDataFormProps
     );
   }
 
+  const triage = getTriageSuggestion(allergies, conditions);
   return (
     <motion.div
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       className="max-w-3xl mx-auto space-y-6"
     >
+      {/* Advanced AI Triage Suggestion */}
+      <TriageDisplay triageText={llmTriage} loading={llmLoading} />
       {/* Header */}
       <div className="flex items-center gap-4">
         <Button variant="ghost" size="icon" onClick={onBack}>

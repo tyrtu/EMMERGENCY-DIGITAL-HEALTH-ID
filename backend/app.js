@@ -18,6 +18,7 @@ import medicRoutes from "./src/routes/medicRoutes.js";
 import analyticRoutes from "./src/routes/AnalyticRoutes.js";
 import medicalRecordRoutes from "./src/routes/medicalRecordRoutes.js";
 import medicationLogRoutes from "./src/routes/medicationLogRoutes.js";
+import llmTriageRoutes from "./src/routes/llmTriageRoutes.js";
 
 dotenv.config();
 
@@ -56,10 +57,18 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(sanitizeBody);
 
-app.use('/uploads', express.static('uploads'));
+// Add cache headers for images in /uploads
+app.use('/uploads', express.static('uploads', {
+  maxAge: '7d',
+  setHeaders: (res) => {
+    res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
+  }
+}));
 
 // app.use(apiLimiter); // Disabled for testing
 
+
+app.use("/api/llm-triage", llmTriageRoutes);
 app.use("/api/qr", /* qrLimiter, */ qrRoutes); // Disabled qrLimiter for testing
 app.use("/api/analytics", /* analyticsLimiter, */ analyticRoutes); // Disabled analyticsLimiter for testing
 app.use("/api/emergency-contacts", emergencyContactRoutes);

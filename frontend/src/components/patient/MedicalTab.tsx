@@ -1,4 +1,5 @@
 import { Pill, Activity, Syringe, Users, HeartPulse } from "lucide-react";
+import PatientTriageCard from "./PatientTriageCard";
 import { Badge } from "@/components/ui/badge";
 import { usePatientMedicalData } from "@/hooks/usePatientData";
 import { format } from "date-fns";
@@ -32,6 +33,8 @@ export default function MedicalTab() {
 
   return (
     <div className="space-y-6">
+      {/* AI Triage Card */}
+      <PatientTriageCard />
       {/* Blood Type & Key Info */}
       <div className="card-medical max-w-full w-full">
         <h3 className="text-sm font-semibold text-foreground mb-4">Key Medical Info</h3>
