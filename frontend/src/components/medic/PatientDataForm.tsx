@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 async function fetchLLMTriage(patientData: any) {
   try {
     const { API_BASE_URL } = await import("@/lib/apiClient");
-    const response = await fetch(`${API_BASE_URL}/llm-triage`, {
+    const response = await fetch(`${API_BASE_URL}/api/llm-triage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ patientData }),

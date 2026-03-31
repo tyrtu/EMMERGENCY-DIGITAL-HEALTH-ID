@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { usePatientProfile, usePatientMedicalData, useVitalSigns } from "@/hooks/usePatientData";
 import { VitalsAlert } from "@/components/ai/VitalsAlert";
-import axios from "axios";
+import { apiRequest } from "@/lib/apiClient";
 import React from "react";
 
 export default function VitalsAlertContainer() {
@@ -14,12 +14,14 @@ export default function VitalsAlertContainer() {
     queryKey: ["llm-vitals", latest, profile, medical],
     enabled: !!latest && !!profile && !!medical,
     queryFn: async () => {
-      const res = await axios.post("/api/llm-vitals", {
-        vitals: latest,
-        profile,
-        medical,
+      return await apiRequest("/api/llm-vitals", {
+        method: "POST",
+        body: JSON.stringify({
+          vitals: latest,
+          profile,
+          medical,
+        }),
       });
-      return res.data;
     },
     staleTime: 1000 * 60 * 5,
     retry: 1,
