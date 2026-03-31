@@ -28,7 +28,7 @@ export const llmVitals = async (req, res) => {
     }
     return res.json({ advice: result });
   } catch (e) {
-    console.error("[LLM] Vitals Error:", e);
+    // Removed API log for production cleanliness
     return res.status(500).json({ error: e.message || "LLM error" });
   }
 };
