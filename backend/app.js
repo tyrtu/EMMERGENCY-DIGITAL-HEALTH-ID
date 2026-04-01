@@ -86,7 +86,10 @@ app.use("/api/records", medicalRecordRoutes);
 app.use("/api/medication-log", medicationLogRoutes);
 
 if (process.env.NODE_ENV !== 'test') {
-  connectDB();
+  connectDB().catch((error) => {
+    console.error("[DB] Startup connection failed. Server will keep running, but DB-backed endpoints may fail.");
+    console.error("[DB]", error.message);
+  });
 }
 
 // Health check
