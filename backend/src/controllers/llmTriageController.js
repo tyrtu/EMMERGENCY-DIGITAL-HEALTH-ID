@@ -1,6 +1,5 @@
 // backend/src/controllers/llmTriageController.js
 import Groq from "groq-sdk";
-import medicalAssistantSystemPrompt from "../prompts/medicalAssistantSystemPrompt.js";
 
 /**
  * POST /api/llm-triage
@@ -26,14 +25,13 @@ export const llmTriage = async (req, res) => {
     }
 
     const groq = new Groq({ apiKey });
-    const userPrompt = `Analyze the following patient data and provide:\n1) Triage level (Critical, Caution, or Normal)\n2) Short explanation\n3) Actionable recommendations\nBe concise and clear for medics in the field.\n\nPatient data: ${JSON.stringify(patientData)}`;
+    const prompt = `You are a medical triage assistant. Analyze the following patient data and provide:\n1) Triage level (Critical, Caution, or Normal)\n2) Short explanation\n3) Actionable recommendations\nBe concise and clear for medics in the field.\n\nPatient data: ${JSON.stringify(patientData)}`;
     let result = "";
     try {
       const stream = await groq.chat.completions.create({
         model: "llama-3.3-70b-versatile",
         messages: [
-          { role: "system", content: medicalAssistantSystemPrompt },
-          { role: "user", content: userPrompt },
+          { role: "user", content: prompt },
         ],
         max_tokens: 512,
         stream: true,

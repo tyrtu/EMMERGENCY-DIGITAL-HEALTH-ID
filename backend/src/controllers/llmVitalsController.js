@@ -1,5 +1,4 @@
 import Groq from "groq-sdk";
-import medicalAssistantSystemPrompt from "../prompts/medicalAssistantSystemPrompt.js";
 
 /**
  * POST /api/llm-vitals
@@ -14,13 +13,12 @@ export const llmVitals = async (req, res) => {
     if (!vitals) return res.status(400).json({ error: "Missing vitals" });
 
     const groq = new Groq({ apiKey });
-    const userPrompt = `Analyze the following patient vitals and medical data.\n1) List any abnormal or concerning vital signs (with flag: high/low/critical/normal).\n2) Give a short, patient-friendly explanation for each flagged vital.\n3) Provide actionable, patient-appropriate advice.\nBe clear, concise, and use layman's terms.\n\nVitals: ${JSON.stringify(vitals)}\nProfile: ${JSON.stringify(profile)}\nMedical: ${JSON.stringify(medical)}`;
+    const prompt = `You are an expert medical assistant. Analyze the following patient vitals and medical data.\n1) List any abnormal or concerning vital signs (with flag: high/low/critical/normal).\n2) Give a short, patient-friendly explanation for each flagged vital.\n3) Provide actionable, patient-appropriate advice.\nBe clear, concise, and use layman's terms.\n\nVitals: ${JSON.stringify(vitals)}\nProfile: ${JSON.stringify(profile)}\nMedical: ${JSON.stringify(medical)}`;
     let result = "";
     const stream = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       messages: [
-        { role: "system", content: medicalAssistantSystemPrompt },
-        { role: "user", content: userPrompt },
+        { role: "user", content: prompt },
       ],
       max_tokens: 512,
       stream: true,

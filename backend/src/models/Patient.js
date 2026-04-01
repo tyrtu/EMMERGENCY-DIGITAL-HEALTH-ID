@@ -223,6 +223,8 @@ const patientSchema = new mongoose.Schema(
 // ========================
 // INDEXES & VIRTUALS
 // ========================
+patientSchema.index({ authId: 1 });
+patientSchema.index({ email: 1 });
 patientSchema.index({ "basicInfo.fullName": 1 });
 patientSchema.index({ "emergencyInfo.primaryDoctor.name": 1 });
 patientSchema.index({ "medicalInfo.insurance.provider": 1 });
@@ -243,6 +245,7 @@ patientSchema.set('toJSON', { virtuals: true });
 patientSchema.set('toObject', { virtuals: true });
 
 // Add indexes for frequently queried fields
+patientSchema.index({ authId: 1 }, { unique: true });
 patientSchema.index({ email: 1 });
 patientSchema.index({ 'basicInfo.bloodGroup': 1 });
 patientSchema.index({ 'emergencyInfo.criticalAllergies': 1 });
