@@ -26,7 +26,6 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
-const dbRetryMs = Number(process.env.DB_RETRY_MS || 15000);
 
 // Middleware
 const allowedOrigins = process.env.FRONTEND_URL 
@@ -86,17 +85,8 @@ app.use("/api/medics", medicRoutes);
 app.use("/api/records", medicalRecordRoutes);
 app.use("/api/medication-log", medicationLogRoutes);
 
-const connectWithRetry = async () => {
-  try {
-    await connectDB();
-  } catch (error) {
-    console.error(`Retrying MongoDB connection in ${dbRetryMs}ms...`);
-    setTimeout(connectWithRetry, dbRetryMs);
-  }
-};
-
 if (process.env.NODE_ENV !== 'test') {
-  connectWithRetry();
+  connectDB();
 }
 
 // Health check
